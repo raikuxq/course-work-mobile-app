@@ -1,0 +1,265 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Auth {
+    "JWT access token"
+    accessToken: JWT!
+    "JWT refresh token"
+    refreshToken: JWT!
+    user: User!
+}
+
+type Channel {
+    author: User!
+    categories: [ChannelCategory!]!
+    "Identifies the date and time when the object was created."
+    createdAt: DateTime!
+    description: String!
+    id: ID!
+    inviteLink: String!
+    members: [User!]!
+    title: String!
+    "Identifies the date and time when the object was last updated."
+    updatedAt: DateTime!
+}
+
+type ChannelCategory {
+    channel: Channel!
+    "Identifies the date and time when the object was created."
+    createdAt: DateTime!
+    id: ID!
+    title: String!
+    trackers: [Tracker!]!
+    "Identifies the date and time when the object was last updated."
+    updatedAt: DateTime!
+}
+
+type IssueReport {
+    author: TrackerMember!
+    createdAt: DateTime!
+    description: String!
+    id: String!
+    priority: IssueReportPriority!
+    responsiblePerson: TrackerMember!
+    status: IssueReportStatus!
+    title: String!
+    tracker: Tracker!
+    type: IssueReportType!
+    updatedAt: DateTime!
+}
+
+type Mutation {
+    authLogin(data: LoginInput!): Auth!
+    authRefreshToken(token: JWT!): Token!
+    authSignup(data: SignupInput!): Auth!
+    channelCategoryCreate(data: ChannelCategoryCreateInput!): ChannelCategory!
+    channelCategoryDelete(id: String!): ID!
+    channelCategoryUpdate(data: ChannelCategoryUpdateInput!, id: String!): ChannelCategory!
+    channelCreate(data: ChannelCreateInput!): Channel!
+    channelDelete(id: String!): ID!
+    channelJoin(data: ChannelJoinToInput!): Channel!
+    channelLeave(data: ChannelLeaveInput!): ID!
+    channelUpdate(data: ChannelUpdateInput!, id: String!): Channel!
+    issueReportCreate(data: IssueReportCreateInput!): IssueReport!
+    issueReportDelete(id: String!): ID!
+    issueReportUpdate(data: IssueReportUpdateInput!, id: String!): IssueReport!
+    trackerAddMember(data: TrackerAddMemberInput!): Tracker!
+    trackerCreate(data: TrackerCreateInput!): Tracker!
+    trackerDelete(id: String!): ID!
+    trackerRemoveMember(data: TrackerRemoveMemberInput!): Tracker!
+    trackerUpdate(data: TrackerUpdateInput!, id: String!): Tracker!
+    trackerUpdateMemberRole(data: TrackerAddMemberInput!): Tracker!
+    userChangePassword(data: ChangePasswordInput!): User!
+    userUpdate(data: UpdateUserInput!): User!
+}
+
+type Query {
+    channel(id: String!): Channel!
+    issueReport(id: String!): IssueReport!
+    tracker(id: String!): Tracker!
+    userChannels: [Channel!]!
+    userCurrent: User!
+}
+
+type Token {
+    "JWT access token"
+    accessToken: JWT!
+    "JWT refresh token"
+    refreshToken: JWT!
+}
+
+type Tracker {
+    category: ChannelCategory!
+    channel: Channel!
+    "Identifies the date and time when the object was created."
+    createdAt: DateTime!
+    description: String!
+    id: ID!
+    members: [TrackerMember!]!
+    reports: [IssueReport!]!
+    title: String!
+    "Identifies the date and time when the object was last updated."
+    updatedAt: DateTime!
+}
+
+type TrackerMember {
+    "Identifies the date and time when the object was created."
+    createdAt: DateTime!
+    id: ID!
+    role: TrackerMemberRole!
+    "Identifies the date and time when the object was last updated."
+    updatedAt: DateTime!
+    user: User!
+}
+
+type User {
+    "Identifies the date and time when the object was created."
+    createdAt: DateTime!
+    email: String!
+    firstname: String
+    id: ID!
+    lastname: String
+    role: Role!
+    "Identifies the date and time when the object was last updated."
+    updatedAt: DateTime!
+}
+
+"Issue report priority"
+enum IssueReportPriority {
+    CRITICAL
+    HIGH
+    LOW
+    NORMAL
+}
+
+"Issue report status"
+enum IssueReportStatus {
+    CLOSED
+    DISCUSSION
+    FULFILMENT
+    READY
+    TO_APPROVE
+}
+
+"Issue report type"
+enum IssueReportType {
+    FUNCTIONALITY
+    REPORTING
+    UI
+    VULNERABILITY
+}
+
+"User role"
+enum Role {
+    ADMIN
+    USER
+}
+
+"Tracker member role"
+enum TrackerMemberRole {
+    DEV
+    GUEST
+    QA
+}
+
+"A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format."
+scalar DateTime
+
+"A field whose value is a JSON Web Token (JWT): https://jwt.io/introduction."
+scalar JWT
+
+input ChangePasswordInput {
+    newPassword: String!
+    oldPassword: String!
+}
+
+input ChannelCategoryCreateInput {
+    channelId: String!
+    title: String!
+}
+
+input ChannelCategoryUpdateInput {
+    title: String!
+}
+
+input ChannelCreateInput {
+    description: String!
+    title: String!
+}
+
+input ChannelJoinToInput {
+    inviteLink: String!
+}
+
+input ChannelLeaveInput {
+    channelId: String!
+}
+
+input ChannelUpdateInput {
+    description: String!
+    title: String!
+}
+
+input IssueReportCreateInput {
+    description: String!
+    priority: IssueReportPriority!
+    responsiblePersonId: String!
+    status: IssueReportStatus!
+    title: String!
+    trackerId: String!
+    type: IssueReportType!
+}
+
+input IssueReportUpdateInput {
+    description: String
+    priority: IssueReportPriority
+    responsiblePersonId: String
+    status: IssueReportStatus
+    title: String
+    type: IssueReportType
+}
+
+input LoginInput {
+    email: String!
+    password: String!
+}
+
+input SignupInput {
+    email: String!
+    firstname: String
+    lastname: String
+    password: String!
+}
+
+input TrackerAddMemberInput {
+    role: TrackerMemberRole!
+    trackerId: String!
+    userId: String!
+}
+
+input TrackerCreateInput {
+    channelCategoryId: String
+    channelId: String!
+    description: String
+    title: String!
+}
+
+input TrackerRemoveMemberInput {
+    trackerId: String!
+    userId: String!
+}
+
+input TrackerUpdateInput {
+    channelCategoryId: String
+    description: String
+    title: String
+}
+
+input UpdateUserInput {
+    firstname: String
+    lastname: String
+}
