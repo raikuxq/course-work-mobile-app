@@ -5,11 +5,13 @@ import {View, TextInput, Button, Text} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {setUser} from '../../store/auth';
 import {useMutation} from '@apollo/client';
+import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {AUTH_LOGIN_MUTATION} from "../../api/AuthLoginMutation.api";
 
 export const AuthLoginForm = () => {
+    const navigation = useNavigation();
     const dispatch = useDispatch();
     const [authLogin, { loading, error }] = useMutation(AUTH_LOGIN_MUTATION);
     const [accessToken, setAccessToken] = useState(null);
@@ -35,6 +37,9 @@ export const AuthLoginForm = () => {
             await AsyncStorage.setItem('accessToken', accessToken);
             await AsyncStorage.setItem('refreshToken', refreshToken);
             dispatch(setUser(user));
+            console.log('should navigate to channels screen')
+            // @ts-ignore
+            navigation.navigate("Channels");
         } catch (error) {
             console.log(error);
         }
