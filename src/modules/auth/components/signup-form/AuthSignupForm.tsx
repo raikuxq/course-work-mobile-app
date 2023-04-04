@@ -5,7 +5,8 @@ import {View, TextInput, Button} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {setUser} from '../../store/auth';
 import {useMutation} from '@apollo/client';
-import SyncStorage from 'react-native-sync-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {AUTH_SIGNUP_MUTATION} from "../../api/AuthSignupMutation.api";
 
 export const AuthSignupForm = () => {
@@ -38,7 +39,7 @@ export const AuthSignupForm = () => {
             console.log('request finished')
             console.log(data)
             const { accessToken, user } = data.authSignup;
-            await SyncStorage.setItem('accessToken', accessToken);
+            await AsyncStorage.setItem('accessToken', accessToken);
             dispatch(setUser(user));
             console.log(user)
         } catch (error) {

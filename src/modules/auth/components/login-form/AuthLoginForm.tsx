@@ -1,16 +1,18 @@
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import React from 'react';
-import {View, TextInput, Button} from 'react-native';
+import React, {useState} from 'react';
+import {View, TextInput, Button, Text} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {setUser} from '../../store/auth';
 import {useMutation} from '@apollo/client';
-import SyncStorage from 'react-native-sync-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {AUTH_LOGIN_MUTATION} from "../../api/AuthLoginMutation.api";
 
 export const AuthLoginForm = () => {
     const dispatch = useDispatch();
-    const [authLogin, { data, loading, error }] = useMutation(AUTH_LOGIN_MUTATION);
+    const [authLogin, { loading, error }] = useMutation(AUTH_LOGIN_MUTATION);
+    const [accessToken, setAccessToken] = useState(null);
 
     const initialValues = {email: '', password: ''};
 
@@ -23,18 +25,23 @@ export const AuthLoginForm = () => {
         console.log('handleLogin called')
         console.log(values)
         try {
-            await authLogin({
+            const { data } = await authLogin({
                 variables: {
                     email: values.email,
                     password: values.password
                 },
             });
             const {accessToken, user} = data.authLogin;
-            await SyncStorage.setItem('accessToken', accessToken);
+            await AsyncStorage.setItem('accessToken', accessToken);
             dispatch(setUser(user));
         } catch (error) {
             console.log(error);
         }
+    };
+
+    const handleShowToken = async () => {
+        const token = await AsyncStorage.getItem('accessToken');
+        setAccessToken(token);
     };
 
     return (
@@ -60,6 +67,14 @@ export const AuthLoginForm = () => {
                             title="Log In"
                             onPress={() => handleSubmit()}
                         />
+
+                        <Button
+                            title="Show Token"
+                            onPress={() => handleShowToken()}
+                        />
+                        {accessToken && (
+                            <Text>{accessToken}</Text>
+                        )}
                     </View>
                 )}
             </Formik>

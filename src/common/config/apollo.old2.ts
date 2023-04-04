@@ -2,9 +2,9 @@
 // import { onError } from '@apollo/client/link/error';
 // import { TokenRefreshLink } from 'apollo-link-token-refresh';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-
+//
 // import jwtDecode from 'jwt-decode';
-// import {GRAPHQL_API_ENDPOINT_URL} from "../constants/constants";
+// import { GRAPHQL_API_ENDPOINT_URL } from '../constants/constants';
 //
 // interface DecodedToken {
 //     exp: number;
@@ -12,7 +12,7 @@
 //
 // const refreshTokenLink = new TokenRefreshLink({
 //     isTokenValidOrUndefined: () => {
-//         const token = SyncStorage.getItem('accessToken');
+//         const token = AsyncStorage.getItem('accessToken');
 //
 //         if (!token) {
 //             return true;
@@ -27,7 +27,7 @@
 //             return false;
 //         }
 //     },
-//     fetchAccessToken: () => SyncStorage.getItem('accessToken'),
+//     fetchAccessToken: () => AsyncStorage.getItem('accessToken'),
 //     handleFetch: (accessToken) =>
 //         fetch(GRAPHQL_API_ENDPOINT_URL, {
 //             method: 'POST',
@@ -52,8 +52,8 @@
 //     handleError: (err) => console.warn('Error fetching refresh token:', err),
 //     handleResponse: (operation, accessTokenField) => (response) => {
 //         const { accessToken, refreshToken } = response.data.authRefreshToken;
-//         SyncStorage.setItem('accessToken', accessToken);
-//         SyncStorage.setItem('refreshToken', refreshToken);
+//         AsyncStorage.setItem('accessToken', accessToken);
+//         AsyncStorage.setItem('refreshToken', refreshToken);
 //     },
 // });
 //
@@ -71,8 +71,8 @@
 //     }
 // });
 //
-// const authLink = new ApolloLink((operation, forward) => {
-//     const token = SyncStorage.getItem('accessToken');
+// const authLink = new ApolloLink(async (operation, forward) => {
+//     const token = await AsyncStorage.getItem('accessToken');
 //
 //     operation.setContext({
 //         headers: {
@@ -88,6 +88,18 @@
 // const client = new ApolloClient({
 //     link,
 //     cache: new InMemoryCache(),
+//     connectToDevTools: true, // включает режим разработчика
+//     defaultOptions: {
+//         watchQuery: {
+//             fetchPolicy: 'network-only',
+//         },
+//         query: {
+//             fetchPolicy: 'network-only',
+//         },
+//         mutate: {
+//             fetchPolicy: 'network-only',
+//         },
+//     }
 // });
 //
-// export default client;
+// export { client };
