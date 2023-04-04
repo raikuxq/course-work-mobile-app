@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AuthScreen from '../../../modules/auth/routes/AuthScreen';
 import MainScreen from "../../../modules/main/routes/MainScreen";
 import ProfileScreen from "../../../modules/profile/route/ProfileScreen";
+import ChannelsScreen from "../../../modules/channels/routes/ChannelsScreen";
 import { NavigationContainer } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
@@ -29,6 +30,16 @@ function AppNavigation() {
                         title: 'Главная',
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="home" color={color} size={size} />
+                        ),
+                    }}
+                />
+                <Tab.Screen
+                    name="Channels"
+                    component={ChannelsScreen}
+                    options={{
+                        title: 'Каналы',
+                        tabBarIcon: ({ color, size }) => (
+                            <MaterialCommunityIcons name="view-list" color={color} size={size} />
                         ),
                     }}
                 />

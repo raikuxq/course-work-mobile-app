@@ -38,8 +38,9 @@ export const AuthSignupForm = () => {
             });
             console.log('request finished')
             console.log(data)
-            const { accessToken, user } = data.authSignup;
+            const { accessToken, refreshToken, user } = data.authSignup;
             await AsyncStorage.setItem('accessToken', accessToken);
+            await AsyncStorage.setItem('refreshToken', refreshToken);
             dispatch(setUser(user));
             console.log(user)
         } catch (error) {

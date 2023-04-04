@@ -31,8 +31,9 @@ export const AuthLoginForm = () => {
                     password: values.password
                 },
             });
-            const {accessToken, user} = data.authLogin;
+            const {accessToken, refreshToken, user} = data.authLogin;
             await AsyncStorage.setItem('accessToken', accessToken);
+            await AsyncStorage.setItem('refreshToken', refreshToken);
             dispatch(setUser(user));
         } catch (error) {
             console.log(error);
