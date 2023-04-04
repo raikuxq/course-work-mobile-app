@@ -4,9 +4,11 @@ import { Formik, Form, Field } from 'formik';
 import { View, Text, TextInput, Button } from 'react-native';
 import * as Yup from 'yup';
 import { CHANNEL_CREATE_MUTATION } from '../../api/ChannelsCreate.api';
+import { CHANNEL_CREATE_CATEGORY_MUTATION } from "../../api/ChannelsCreateCategory.api";
 
 export const ChannelsCreate = () => {
     const [createChannel] = useMutation(CHANNEL_CREATE_MUTATION);
+    const [createChannelCategory] = useMutation(CHANNEL_CREATE_CATEGORY_MUTATION);
 
     const initialValues = {
         title: '',
@@ -20,7 +22,7 @@ export const ChannelsCreate = () => {
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
         try {
-            await createChannel({
+            const { data } = await createChannel({
                 variables: {
                     title: values.title,
                     description: values.description,
@@ -28,6 +30,22 @@ export const ChannelsCreate = () => {
             });
             resetForm();
             alert('Channel created!');
+
+            console.log('DATA___')
+            console.log(data)
+            console.log(data.channelCreate)
+
+            const { id: channelId } = data.channelCreate
+
+            if (channelId) {
+                const { data } = await createChannelCategory({
+                    variables: {
+                        title: 'Main',
+                        channelId: channelId,
+                    },
+                });
+            }
+
         } catch (err) {
             console.error(err);
             alert('Error creating channel');

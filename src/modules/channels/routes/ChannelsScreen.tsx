@@ -1,29 +1,25 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { ChannelsCreate } from '../components/create/ChannelsCreate';
-import { ChannelsJoin } from '../components/join/ChannelsJoin';
-import { ChannelsList } from '../components/list/ChannelsList';
+    import React from 'react';
+    import { createStackNavigator } from '@react-navigation/stack';
+    import ChannelsListScreen from "./ChannelsListScreen";
+    import ChannelsDetailsScreen from "./ChannelsDetailsScreen";
 
-export default function ChannelsScreen({ navigation }) {
-    useEffect(() => {
-        navigation.setOptions({ title: 'Список каналов' });
-    }, [navigation]);
+    const Stack = createStackNavigator();
 
-    return (
-        <View style={styles.container}>
-            <ChannelsList />
-            <Text>{'\n\n'}</Text>
-            <ChannelsCreate />
-            <Text>{'\n\n'}</Text>
-            <ChannelsJoin />
-        </View>
-    );
-}
+    export default function ChannelsScreen({ navigation, route }) {
+        return (
+            <Stack.Navigator>
+                <Stack.Screen
+                    name="ChannelsList"
+                    component={ChannelsListScreen}
+                />
+                <Stack.Screen
+                    name="ChannelDetails"
+                    component={ChannelsDetailsScreen}
+                    /** @ts-ignore */
+                    options={({ route }) => ({ id: route.params.id })}
+                />
+            </Stack.Navigator>
+        );
+    }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
+
