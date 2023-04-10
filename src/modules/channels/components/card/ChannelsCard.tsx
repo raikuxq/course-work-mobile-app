@@ -1,7 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-export const ChannelsCard = ({ title, author, members, categories }) => {
+export const ChannelsCard = ({ author, members, categories }) => {
+
+    const navigation = useNavigation();
+
     return (
         <View style={{ margin: 16 }}>
             <Text style={{ marginBottom: 8 }}>
@@ -31,9 +35,15 @@ export const ChannelsCard = ({ title, author, members, categories }) => {
                 </Text>
                 {categories.map((category) =>
                     category.trackers.map((tracker) => (
-                        <Text key={tracker.id}>
-                            {tracker.id} - {tracker.title}
-                        </Text>
+                        <TouchableOpacity
+                            /* @ts-ignore */
+                            onPress={() => navigation.navigate('TrackerDetails', { id: tracker.id })}
+                            key={tracker.id}
+                        >
+                            <Text >
+                                {tracker.id} - {tracker.title}
+                            </Text>
+                        </TouchableOpacity>
                     ))
                 )}
             </View>

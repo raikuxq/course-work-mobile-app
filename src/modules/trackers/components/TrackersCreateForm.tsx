@@ -3,12 +3,17 @@ import { useMutation } from '@apollo/client';
 import { Formik, Form, Field } from 'formik';
 import { View, Text, TextInput, Button } from 'react-native';
 import * as Yup from 'yup';
-import { CHANNEL_CREATE_MUTATION } from '../../api/ChannelsCreate.api';
-import { CHANNEL_CREATE_CATEGORY_MUTATION } from "../../api/ChannelsCreateCategory.api";
+import {TRACKER_CREATE_MUTATION} from "../api/TrackersCreate.api";
 
-export const ChannelsCreate = () => {
-    const [createChannel] = useMutation(CHANNEL_CREATE_MUTATION);
-    const [createChannelCategory] = useMutation(CHANNEL_CREATE_CATEGORY_MUTATION);
+type TTrackersCreateForm = {
+    channelId: string;
+    channelCategoryId: string;
+}
+
+export const TrackersCreateForm = (props: TTrackersCreateForm) => {
+    const { channelId, channelCategoryId } = props;
+
+    console.log(channelId, channelCategoryId)
 
     const initialValues = {
         title: '',
@@ -20,38 +25,38 @@ export const ChannelsCreate = () => {
         description: Yup.string(),
     });
 
+    const [createTracker] = useMutation(TRACKER_CREATE_MUTATION);
+
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
         try {
-            const { data } = await createChannel({
+            const { data } = await createTracker({
                 variables: {
+                    channelId,
+                    channelCategoryId,
                     title: values.title,
                     description: values.description,
                 },
             });
             resetForm();
-            alert('Channel created!');
+            alert('Tracker created!');
 
-            const { id: channelId } = data.channelCreate
-
-            if (channelId) {
-                const { data } = await createChannelCategory({
-                    variables: {
-                        title: 'Main',
-                        channelId: channelId,
-                    },
-                });
-            }
-
+            console.log('DATA___');
+            console.log(data);
+            console.log(data.trackerCreate);
         } catch (err) {
             console.error(err);
-            alert('Error creating channel');
+            alert('Error creating tracker');
         }
         setSubmitting(false);
     };
 
+    if (!channelId || !channelCategoryId) {
+        return null;
+    }
+
     return (
         <View>
-            <Text>Create a Channel</Text>
+            <Text>Create a Tracker</Text>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
@@ -72,7 +77,11 @@ export const ChannelsCreate = () => {
                             value={values.description}
                             multiline={true}
                         />
-                        <Button onPress={() => handleSubmit()} title="Submit" disabled={isSubmitting} />
+                        <Button
+                            onPress={() => handleSubmit()}
+                            title="Submit"
+                            disabled={isSubmitting}
+                        />
                     </View>
                 )}
             </Formik>
