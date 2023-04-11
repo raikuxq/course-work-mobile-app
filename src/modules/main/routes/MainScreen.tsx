@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import {AppNetInfo} from "../../../../src/common/components/net/AppNetInfo";
 
 export default function MainScreen({ navigation }) {
 
@@ -11,7 +10,6 @@ export default function MainScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <Text>This is the Profile Screen</Text>
-            <AppNetInfo />
         </View>
     );
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useQuery } from '@apollo/client';
-import { AppNetInfo } from '../../../../src/common/components/net/AppNetInfo';
 import { PROFILE_INFO_QUERY } from '../api/ProfileInfoQuery.api';
 
 export function ProfileInfo() {
@@ -28,7 +27,6 @@ export function ProfileInfo() {
             <Text style={styles.text}>Роль: {data.userCurrent.role}</Text>
             <Text style={styles.text}>Дата создания: {data.userCurrent.createdAt}</Text>
             <Text style={styles.text}>Дата обновления: {data.userCurrent.updatedAt}</Text>
-            <AppNetInfo />
         </View>
     );
 }

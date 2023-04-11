@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import {AuthLoginForm} from "../components/login-form/AuthLoginForm";
 import {AuthSignupForm} from "../components/signup-form/AuthSignupForm";
+import {s} from "../../../../App";
 
 const AuthScreen = ({ navigation }) => {
     const [index, setIndex] = useState(0);
@@ -19,11 +20,11 @@ const AuthScreen = ({ navigation }) => {
     const renderTabBar = (props) => (
         <TabBar
             {...props}
-            indicatorStyle={{ backgroundColor: '#FFFFFF' }}
-            style={{ backgroundColor: '#6200EE' }}
+            indicatorStyle={{ backgroundColor: s.blue }}
+            style={{ backgroundColor: s.white }}
             renderLabel={({ route, focused }) => (
                 // @ts-ignore
-                <Text style={{ color: focused ? '#FFFFFF' : '#A9A9A9' }}>
+                <Text style={{ color: focused ? s.blue : '#A9A9A9', transform: focused ? 'translate(10px, 10px)' : 'none' }}>
                     {route.title}
                 </Text>
             )}

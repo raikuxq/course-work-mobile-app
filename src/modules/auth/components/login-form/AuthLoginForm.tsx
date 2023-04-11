@@ -24,8 +24,6 @@ export const AuthLoginForm = () => {
     });
 
     const handleLogin = async (values) => {
-        console.log('handleLogin called')
-        console.log(values)
         try {
             const { data } = await authLogin({
                 variables: {
@@ -37,7 +35,6 @@ export const AuthLoginForm = () => {
             await AsyncStorage.setItem('accessToken', accessToken);
             await AsyncStorage.setItem('refreshToken', refreshToken);
             dispatch(setUser(user));
-            console.log('should navigate to channels screen')
             // @ts-ignore
             navigation.navigate("Channels");
         } catch (error) {
@@ -63,24 +60,16 @@ export const AuthLoginForm = () => {
                         />
                         <TextInput
                             secureTextEntry
-                            placeholder="Password"
+                            placeholder="Пароль"
                             onChangeText={handleChange('password')}
 
                             onBlur={handleBlur('password')}
                             value={values.password}
                         />
                         <Button
-                            title="Log In"
+                            title="Войти"
                             onPress={() => handleSubmit()}
                         />
-
-                        <Button
-                            title="Show Token"
-                            onPress={() => handleShowToken()}
-                        />
-                        {accessToken && (
-                            <Text>{accessToken}</Text>
-                        )}
                     </View>
                 )}
             </Formik>

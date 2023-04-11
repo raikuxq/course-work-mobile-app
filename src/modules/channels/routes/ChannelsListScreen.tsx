@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import { ChannelsCreate } from '../components/create/ChannelsCreate';
 import { ChannelsJoin } from '../components/join/ChannelsJoin';
 import { ChannelsList } from '../components/list/ChannelsList';
@@ -10,20 +10,25 @@ export default function ChannelsListScreen({ navigation }) {
     }, [navigation]);
 
     return (
-        <View style={styles.container}>
-            <ChannelsList />
-            <Text>{'\n\n'}</Text>
-            <ChannelsCreate />
-            <Text>{'\n\n'}</Text>
-            <ChannelsJoin />
-        </View>
+        <ScrollView>
+            <View style={styles.container}>
+                <ChannelsJoin />
+                <Text>{'\n'}</Text>
+                <ChannelsCreate />
+                <Text>{'\n'}</Text>
+                <ChannelsList />
+            </View>
+        </ScrollView>
+
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        padding: 10,
+        width: '100%',
         flex: 1,
-        alignItems: 'center',
+        alignItems: 'stretch',
         justifyContent: 'center',
     },
 });
