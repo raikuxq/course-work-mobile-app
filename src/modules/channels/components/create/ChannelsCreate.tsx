@@ -29,7 +29,7 @@ export const ChannelsCreate = () => {
                 },
             });
             resetForm();
-            alert('Channel created!');
+            alert('Канал создан!');
 
             const { id: channelId } = data.channelCreate
 
@@ -51,7 +51,7 @@ export const ChannelsCreate = () => {
 
     return (
         <View>
-            <Text>Create a Channel</Text>
+            <Text>Создать канал</Text>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
@@ -59,20 +59,20 @@ export const ChannelsCreate = () => {
             >
                 {({ isSubmitting, handleChange, handleBlur, handleSubmit, values }) => (
                     <View>
-                        <Text>Title</Text>
+                        <Text>Заголовок:</Text>
                         <TextInput
                             onChangeText={handleChange('title')}
                             onBlur={handleBlur('title')}
                             value={values.title}
                         />
-                        <Text>Description</Text>
+                        <Text>Описание:</Text>
                         <TextInput
                             onChangeText={handleChange('description')}
                             onBlur={handleBlur('description')}
                             value={values.description}
                             multiline={true}
                         />
-                        <Button onPress={() => handleSubmit()} title="Submit" disabled={isSubmitting} />
+                        <Button onPress={() => handleSubmit()} title="Подтвердить" disabled={isSubmitting} />
                     </View>
                 )}
             </Formik>

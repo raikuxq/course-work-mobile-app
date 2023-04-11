@@ -10,16 +10,18 @@ export default function ProfileScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text>This is the Profile Screen</Text>
             <ProfileInfo />
         </View>
     );
 }
 
+
 const styles = StyleSheet.create({
     container: {
+        padding: 10,
+        width: '100%',
         flex: 1,
-        alignItems: 'center',
+        alignItems: 'stretch',
         justifyContent: 'center',
     },
 });

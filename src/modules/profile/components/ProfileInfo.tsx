@@ -31,13 +31,18 @@ export function ProfileInfo() {
     );
 }
 
+
 const styles = StyleSheet.create({
     container: {
+        padding: 10,
+        width: '100%',
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'stretch',
+        justifyContent: 'flex-start',
     },
     text: {
+        textAlign: 'left',
+        fontFamily: 'Montserrat-500',
         marginBottom: 10,
-    },
+    }
 });

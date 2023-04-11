@@ -56,7 +56,7 @@ export const TrackersCreateForm = (props: TTrackersCreateForm) => {
 
     return (
         <View>
-            <Text>Create a Tracker</Text>
+            <Text>Создать трекер</Text>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
@@ -64,13 +64,13 @@ export const TrackersCreateForm = (props: TTrackersCreateForm) => {
             >
                 {({ isSubmitting, handleChange, handleBlur, handleSubmit, values }) => (
                     <View>
-                        <Text>Title</Text>
+                        <Text>Заголовок:</Text>
                         <TextInput
                             onChangeText={handleChange('title')}
                             onBlur={handleBlur('title')}
                             value={values.title}
                         />
-                        <Text>Description</Text>
+                        <Text>Описание:</Text>
                         <TextInput
                             onChangeText={handleChange('description')}
                             onBlur={handleBlur('description')}
@@ -79,7 +79,7 @@ export const TrackersCreateForm = (props: TTrackersCreateForm) => {
                         />
                         <Button
                             onPress={() => handleSubmit()}
-                            title="Submit"
+                            title="Подтвердить"
                             disabled={isSubmitting}
                         />
                     </View>

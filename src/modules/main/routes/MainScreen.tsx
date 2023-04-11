@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import {ChannelsJoin} from "../../channels/components/join/ChannelsJoin";
+import {ChannelsCreate} from "../../channels/components/create/ChannelsCreate";
 
 export default function MainScreen({ navigation }) {
 
@@ -9,15 +11,21 @@ export default function MainScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text>This is the Profile Screen</Text>
+            <ChannelsJoin />
+            <Text>{'\n'}</Text>
+            <ChannelsCreate />
+            <Text>{'\n'}</Text>
         </View>
     );
 }
 
+
 const styles = StyleSheet.create({
     container: {
+        padding: 10,
+        width: '100%',
         flex: 1,
-        alignItems: 'center',
+        alignItems: 'stretch',
         justifyContent: 'center',
     },
 });

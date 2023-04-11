@@ -43,8 +43,10 @@ export default function ChannelsDetailsScreen({ navigation, route }) {
 
 const styles = StyleSheet.create({
     container: {
+        padding: 10,
+        width: '100%',
         flex: 1,
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        justifyContent: 'center',
     },
 });

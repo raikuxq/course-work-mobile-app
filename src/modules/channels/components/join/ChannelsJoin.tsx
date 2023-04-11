@@ -37,7 +37,7 @@ export const ChannelsJoin = () => {
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isSubmitting }) => (
                 <View>
-                    <Text>Invite link</Text>
+                    <Text>Присоединиться к каналу</Text>
                     <TextInput
                         onChangeText={handleChange('inviteLink')}
                         onBlur={handleBlur('inviteLink')}
@@ -45,7 +45,7 @@ export const ChannelsJoin = () => {
                     />
                     {touched.inviteLink && errors.inviteLink && <Text style={{ color: 'red' }}>{errors.inviteLink.toString()}</Text>}
                     <Button
-                        title={loading ? 'Joining...' : 'Join'}
+                        title={loading ? '...' : 'Присоединиться'}
                         onPress={() => handleSubmit()}
                         disabled={isSubmitting || loading}
                     />

@@ -24,17 +24,22 @@ export default function TrackersDetailsScreen({ navigation, route }) {
     if (error) return <Text>Error :(</Text>;
 
     return (
-        <View style={styles.container}>
-            <Text>{'\nТрекер\n'}</Text>
-            <Text>{data.toString()}</Text>
+        <View>
+            <View style={styles.container}>
+                <Text>{'\nТрекер\n'}</Text>
+                <Text>{data?.tracker?.description || ''}</Text>
+            </View>
         </View>
     );
 }
 
+
 const styles = StyleSheet.create({
     container: {
+        padding: 10,
+        width: '100%',
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'stretch',
+        justifyContent: 'flex-start',
     },
 });

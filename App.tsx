@@ -14,9 +14,11 @@
         purple: '#6200ee',
         blue: '#2196f3',
         darkBlue: '#007aff',
+        lightBlue: '#8acdff',
         gray: '#8e8e8f',
         black: '#111111',
         white: '#ffffff',
+        lightGrey: '#f2f2f2',
 
         // Шрифты
         regularFont: 'Montserrat-500',
@@ -55,10 +57,13 @@
             color: s.white,
         },
         touchableOpacity: {
-            backgroundColor: s.purple,
-            color: s.white,
+            backgroundColor: s.lightGrey,
+            color: s.black,
             padding: 10,
+            marginBottom: 10,
             borderRadius: 2,
+            borderWidth: 1,
+            borderColor: s.gray,
             fontFamily: 'Montserrat-500',
         },
         view: {
