@@ -5,6 +5,7 @@ export const CHANNELS_BY_ID_QUERY = gql`
         channel(id: $id) {
             id
             title
+            inviteLink
             author {
                 id
                 firstname

@@ -6,82 +6,8 @@
     import { client as apolloClient } from './src/common/config/apollo'
     import {ApolloProvider} from "@apollo/client";
     import * as Font from 'expo-font';
-    import { StyleSheet } from 'react-native';
     import { setCustomText, setCustomTouchableOpacity, setCustomTouchableHighlight, setCustomView, setCustomTextInput } from 'react-native-global-props';
-
-    export const s = {
-        // Цвета
-        purple: '#6200ee',
-        blue: '#2196f3',
-        darkBlue: '#007aff',
-        lightBlue: '#8acdff',
-        gray: '#8e8e8f',
-        black: '#111111',
-        white: '#ffffff',
-        lightGrey: '#f2f2f2',
-
-        // Шрифты
-        regularFont: 'Montserrat-500',
-        boldFont: 'Montserrat-700',
-
-        // Размер текста
-        defaultFontSize: 14,
-        headerFontSize: 18,
-    }
-
-    const globalStyles = StyleSheet.create({
-        // Общие стили для компонентов
-        scrollView: {
-            flex: 1,
-        },
-        switch: {
-            alignSelf: 'center',
-            fontFamily: 'Montserrat-500',
-        },
-        textInput: {
-            borderWidth: 1,
-            borderColor: s.gray,
-            borderRadius: 2,
-            padding: 10,
-            marginBottom: 10,
-            fontFamily: 'Montserrat-500',
-            fontSize: 14,
-            color: s.black,
-            placeholderTextColor: s.gray,
-        },
-        touchableHighlight: {
-            backgroundColor: s.blue,
-            padding: 10,
-            borderRadius: 2,
-            fontFamily: 'Montserrat-500',
-            color: s.white,
-        },
-        touchableOpacity: {
-            backgroundColor: s.lightGrey,
-            color: s.black,
-            padding: 10,
-            marginBottom: 10,
-            borderRadius: 2,
-            borderWidth: 1,
-            borderColor: s.gray,
-            fontFamily: 'Montserrat-500',
-        },
-        view: {
-            flex: 1,
-            backgroundColor: s.white,
-            color: s.black,
-            padding: 10,
-            fontFamily: 'Montserrat-500',
-            borderRadius: 2,
-        },
-        text: {
-            fontFamily: 'Montserrat-500',
-            color: s.black,
-            fontSize: 14,
-            lineHeight: 20,
-            letterSpacing: 0.25,
-        },
-    });
+    import {globalStyles} from "./src/styles/globalStyles";
 
 
     const initStyles = () => {

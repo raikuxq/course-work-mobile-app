@@ -81,7 +81,8 @@ type Query {
     channel(id: String!): Channel!
     issueReport(id: String!): IssueReport!
     tracker(id: String!): Tracker!
-    userChannels: [Channel!]!
+    userChannelsMemberOf: [UserOnChannel!]!
+    userChannelsOwn: [Channel!]!
     userCurrent: User!
 }
 
@@ -126,6 +127,16 @@ type User {
     role: Role!
     "Identifies the date and time when the object was last updated."
     updatedAt: DateTime!
+}
+
+type UserOnChannel {
+    channel: Channel!
+    "Identifies the date and time when the object was created."
+    createdAt: DateTime!
+    id: ID!
+    "Identifies the date and time when the object was last updated."
+    updatedAt: DateTime!
+    user: User!
 }
 
 "Issue report priority"

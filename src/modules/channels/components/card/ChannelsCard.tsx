@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity, FlatList, ScrollView} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-export const ChannelsCard = ({ author, members, categories }) => {
+export const ChannelsCard = ({ author, members, categories, inviteLink }) => {
 
     const navigation = useNavigation();
 
@@ -10,6 +10,10 @@ export const ChannelsCard = ({ author, members, categories }) => {
         <View>
             <Text>
                 Автор: {author.firstname} {author.lastname}
+            </Text>
+
+            <Text>
+                Код для приглашения: {inviteLink}
             </Text>
 
 

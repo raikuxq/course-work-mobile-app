@@ -85,17 +85,17 @@ const client = new ApolloClient({
     link,
     cache: new InMemoryCache(),
     connectToDevTools: true,
-    // defaultOptions: {
-    //     watchQuery: {
-    //         fetchPolicy: 'network-only',
-    //     },
-    //     query: {
-    //         fetchPolicy: 'network-only',
-    //     },
-    //     mutate: {
-    //         fetchPolicy: 'network-only',
-    //     },
-    // }
+    defaultOptions: {
+        watchQuery: {
+            fetchPolicy: 'network-only',
+        },
+        query: {
+            fetchPolicy: 'network-only',
+        },
+        mutate: {
+            fetchPolicy: 'network-only',
+        },
+    }
 });
 
 export { client };

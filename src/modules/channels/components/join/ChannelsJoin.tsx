@@ -21,9 +21,7 @@ export const ChannelsJoin = () => {
         try {
             await joinChannel({
                 variables: {
-                    data: {
-                        inviteLink: values.inviteLink
-                    }
+                    inviteLink: values.inviteLink
                 }
             });
             resetForm();

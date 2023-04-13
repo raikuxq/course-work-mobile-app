@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import {AuthLoginForm} from "../components/login-form/AuthLoginForm";
 import {AuthSignupForm} from "../components/signup-form/AuthSignupForm";
-import {s} from "../../../../App";
+import {s} from "../../../styles/config";
 
 const AuthScreen = ({ navigation }) => {
     const [index, setIndex] = useState(0);
