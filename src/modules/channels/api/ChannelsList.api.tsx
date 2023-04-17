@@ -5,12 +5,18 @@ export const CHANNELS_LIST_SHORT_QUERY = gql`
         userChannelsOwn {
             id
             title
+            author {
+                id
+            }
         }
         userChannelsMemberOf {
             id
             channel {
                 id
                 title
+                author {
+                    id
+                }
             }
         }
     }
