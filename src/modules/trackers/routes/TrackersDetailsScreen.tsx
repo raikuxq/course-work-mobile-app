@@ -8,7 +8,7 @@ export default function TrackersDetailsScreen({ navigation, route }) {
 
     const { id } = route.params
 
-    const [modalVisible, setModalVisible] = useState(true);
+    const [modalVisible, setModalVisible] = useState(false);
 
     const { loading, error, data } = useQuery(TRACKERS_BY_ID_QUERY, {
         variables: { id },
@@ -32,7 +32,8 @@ export default function TrackersDetailsScreen({ navigation, route }) {
                 <Text>{'\nТрекер\n'}</Text>
                 <Text>{data.tracker.title || ''}</Text>
                 <Text>{data.tracker.description || ''}</Text>
-
+            </View>
+            <View>
                 {data.tracker.members.map((member) => (
                     <Text key={member.id}>
                         {member.user.lastname}, {member.user.firstname} - {member.role}
@@ -40,22 +41,35 @@ export default function TrackersDetailsScreen({ navigation, route }) {
                 ))}
 
                 <View>
-                    <TouchableOpacity
-                        /* @ts-ignore */
-                        onPress={() => setModalVisible(true)}
-                    >
-                        <Text >
-                            {'Создать репорт'}
-                        </Text>
-                    </TouchableOpacity>
+                    {
+                        modalVisible ? (
+                            <ReportsCreateForm
+                                members={data.tracker.members}
+                                trackerId={data.tracker.id}
+                                onClose={() => setModalVisible(false)}
+                                visible={modalVisible}
+                            />
+                        ) : (
+                            <TouchableOpacity
+                                /* @ts-ignore */
+                                onPress={() => setModalVisible(true)}
+                            >
+                                <Text >
+                                    {'Создать репорт'}
+                                </Text>
+                            </TouchableOpacity>
 
-                    <ReportsCreateForm
-                        members={data.tracker.members}
-                        trackerId={data.tracker.id}
-                        onClose={() => setModalVisible(false)}
-                        visible={modalVisible}
-                    />
+                        )
+                    }
                 </View>
+            </View>
+
+            <View>
+                {data.tracker.reports.map((report) => (
+                    <Text key={report.id}>
+                        {report.title}, {report.author.user.firstname} - {report.author.role}
+                    </Text>
+                ))}
             </View>
         </View>
     );

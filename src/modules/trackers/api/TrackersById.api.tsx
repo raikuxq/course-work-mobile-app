@@ -26,6 +26,7 @@ export const TRACKERS_BY_ID_QUERY = gql`
                         firstname
                         lastname
                     }
+                    role
                 }
             }
         }

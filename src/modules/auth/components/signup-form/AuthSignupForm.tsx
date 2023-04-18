@@ -27,7 +27,6 @@ export const AuthSignupForm = () => {
 
     const handleSignup = async (values) => {
         try {
-            console.log('request sent', values)
             const { data } = await authSignup({
                 variables: {
                     email: values.email,
@@ -36,16 +35,11 @@ export const AuthSignupForm = () => {
                     lastname: 'Doe'
                 },
             });
-            console.log('request finished')
-            console.log(data)
             const { accessToken, refreshToken, user } = data.authSignup;
             await AsyncStorage.setItem('accessToken', accessToken);
             await AsyncStorage.setItem('refreshToken', refreshToken);
             dispatch(setUser(user));
-            console.log(user)
         } catch (error) {
-            console.log('request error')
-            console.log(error);
             throw error
         }
     };

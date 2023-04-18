@@ -7,19 +7,19 @@ export const REPORTS_CREATE_MUTATION = gql`
         $priority: IssueReportPriority!,
         $responsiblePersonId: String!,
         $description: String!,
+        $status: IssueReportStatus!,
         $type: IssueReportType!,
     ) {
         issueReportCreate(data: {
             trackerId: $trackerId,
             responsiblePersonId: $responsiblePersonId,
             priority: $priority,
-            status: FULFILMENT,
+            status: $status,
             title: $title,
             type: $type,
             description: $description,
         }) {
             id
-            title
         }
     }
 `;

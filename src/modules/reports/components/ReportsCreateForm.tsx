@@ -6,9 +6,11 @@ import {REPORTS_CREATE_MUTATION} from "../api/ReportsCreate.api";
 import {Picker} from '@react-native-picker/picker';
 
 type TReportsCreateFormMember = {
-    firstname: string;
-    lastname: string;
-    id: string;
+    user: {
+        firstname: string;
+        lastname: string;
+        id: string;
+    }
     role: string;
 }
 
@@ -24,28 +26,25 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
     const {trackerId, members, onClose, visible} = props
     const [createReport] = useMutation(REPORTS_CREATE_MUTATION);
 
-    const initialValues = {
-        title: '',
-        description: '',
-        priority: '',
-        status: '',
-        type: '',
-        responsiblePersonId: ''
-    };
-
     const handleSubmit = async (values) => {
         console.log(values);
         try {
-            await createReport({
+            const request = await createReport({
                 variables: {
                     trackerId,
                     title: values.title,
                     description: values.description,
                     priority: values.priority,
                     type: values.type,
+                    status: values.status,
                     responsiblePersonId: values.responsiblePersonId
                 }
             })
+            console.log('SUCCESS IN SENDING REPORT')
+            console.log(request)
+        } catch (e) {
+            console.log('ERROR IN SENDING REPORT')
+            console.log(e)
         } finally {
             onClose()
         }
@@ -78,11 +77,20 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
     const responsiblePersonOptions = useMemo(() => {
         return members.map(memberItem => {
             return ({
-                label: `${memberItem.firstname} ${memberItem.lastname}`,
-                value: memberItem.id
+                label: `${memberItem.user.firstname} ${memberItem.user.lastname}`,
+                value: memberItem.user.id
             })
         })
     }, [members])
+
+    const initialValues = {
+        title: '',
+        description: '',
+        priority: priorityOptions[0],
+        status: statusOptions[0],
+        type: typeOptions[0],
+        responsiblePersonId: responsiblePersonOptions[0]
+    };
 
     return (
         <View style={{marginTop: 50}}>

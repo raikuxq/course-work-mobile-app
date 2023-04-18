@@ -49,8 +49,6 @@ const refreshToken = async (): Promise<string | null> => {
         console.log(e);
     }
 
-    console.log('REFRESH TOKEN:')
-    console.log(refreshToken)
     const response = await fetch(GRAPHQL_API_ENDPOINT_URL, {
         method: 'POST',
         headers: {
@@ -71,11 +69,7 @@ const refreshToken = async (): Promise<string | null> => {
         }),
     });
 
-    console.log(response)
-
     const json = await response.json();
-    console.log('json')
-    console.log(json)
     const newAccessToken = json.data.authRefreshToken.accessToken;
     await AsyncStorage.setItem('accessToken', newAccessToken);
     return newAccessToken;
