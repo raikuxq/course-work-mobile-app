@@ -6,6 +6,7 @@ import {REPORTS_CREATE_MUTATION} from "../api/ReportsCreate.api";
 import {Picker} from '@react-native-picker/picker';
 
 type TReportsCreateFormMember = {
+    id: string;
     user: {
         firstname: string;
         lastname: string;
@@ -78,7 +79,7 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
         return members.map(memberItem => {
             return ({
                 label: `${memberItem.user.firstname} ${memberItem.user.lastname}`,
-                value: memberItem.user.id
+                value: memberItem.id
             })
         })
     }, [members])

@@ -30,6 +30,7 @@ export default function TrackersDetailsScreen({ navigation, route }) {
         <View>
             <View style={styles.container}>
                 <Text>{'\nТрекер\n'}</Text>
+                <Text>{data.tracker.id || ''}</Text>
                 <Text>{data.tracker.title || ''}</Text>
                 <Text>{data.tracker.description || ''}</Text>
             </View>
