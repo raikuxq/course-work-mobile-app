@@ -103,14 +103,6 @@ function AppNavigation() {
                                             }}
                                         />
                                     ),
-                                    // tabBarButton: ({onPress}) => (
-                                    //     <TouchableOpacity onPress={async (event) => {
-                                    //         await logout();
-                                    //         onPress(event);
-                                    //     }}>
-                                    //         <View />
-                                    //     </TouchableOpacity>
-                                    // ),
                                 }}
                             />
                         </>

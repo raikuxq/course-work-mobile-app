@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StatusBar} from 'expo-status-bar';
 import AppNavigation from './src/common/components/navigation/AppNavigation';
 import {Provider} from 'react-redux';
@@ -14,6 +14,7 @@ import {
     setCustomTextInput
 } from 'react-native-global-props';
 import {globalStyles} from './src/styles/globalStyles';
+import {ActivityIndicator} from "react-native";
 
 const initStyles = () => {
     setCustomText({style: globalStyles.text});
@@ -35,14 +36,23 @@ async function initFonts() {
 
 export default function App() {
 
+    const [fontLoaded, setFontLoaded] = useState(false);
+
+
     /**
      * UI init
      */
     useEffect(() => {
         initStyles()
-        initFonts();
+        initFonts().then(() => {
+            setFontLoaded(true)
+        });
     }, []);
 
+
+    if (!fontLoaded) {
+        return <ActivityIndicator />
+    }
 
     return (
         <ApolloProvider client={apolloClient}>

@@ -1,15 +1,19 @@
 import React, {useEffect, useMemo} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {ChannelsCard} from "../components/card/ChannelsCard";
 import {useQuery} from "@apollo/client";
 import {CHANNELS_BY_ID_QUERY} from "../api/ChannelsById.api";
 import {TrackersCreateForm} from "../../trackers/components/TrackersCreateForm";
+import {useSelector} from "react-redux";
 
-export default function ChannelsDetailsScreen({ navigation, route }) {
-    const { id } = route.params
+export default function ChannelsDetailsScreen({navigation, route}) {
+    const {id} = route.params
 
-    const { loading, error, data } = useQuery(CHANNELS_BY_ID_QUERY, {
-        variables: { id },
+    // @ts-ignore
+    const userId = useSelector((state) => state.auth?.user?.id);
+
+    const {loading, error, data} = useQuery(CHANNELS_BY_ID_QUERY, {
+        variables: {id},
     });
 
     const categoryId = useMemo<string | null>(() => {
@@ -22,7 +26,7 @@ export default function ChannelsDetailsScreen({ navigation, route }) {
 
     useEffect(() => {
         const title = data?.channel?.title || ''
-        navigation.setOptions({ title: `Канал ${title}` });
+        navigation.setOptions({title: `Канал ${title}`});
     }, [navigation, data, loading]);
 
 
@@ -32,11 +36,17 @@ export default function ChannelsDetailsScreen({ navigation, route }) {
     return (
         <View style={styles.container}>
             <ChannelsCard {...data.channel} />
-            <Text>{'\n\n'}</Text>
-            <TrackersCreateForm
-                channelCategoryId={categoryId}
-                channelId={channelId}
-            />
+            {
+                userId === data.channel.author.id && (
+                    <>
+                        <Text>{'\n\n'}</Text>
+                        <TrackersCreateForm
+                            channelCategoryId={categoryId}
+                            channelId={channelId}
+                        />
+                    </>
+                )
+            }
         </View>
     );
 }
