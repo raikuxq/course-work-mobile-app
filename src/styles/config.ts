@@ -4,10 +4,10 @@ export const s = {
     blue: '#2196f3',
     darkBlue: '#007aff',
     lightBlue: '#8acdff',
-    gray: '#8e8e8f',
+    gray: '#c7c7c7',
     black: '#111111',
     white: '#ffffff',
-    lightGrey: '#f2f2f2',
+    lightGrey: '#fafafa',
 
     // Шрифты
     regularFont: 'Montserrat-500',
