@@ -50,7 +50,7 @@ export const globalStyles = StyleSheet.create({
         fontFamily: 'Montserrat-500',
         color: s.black,
         fontSize: 14,
-        lineHeight: 20,
+        lineHeight: 24,
         letterSpacing: 0.25,
     },
 });

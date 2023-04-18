@@ -24,9 +24,7 @@ export function ProfileInfo() {
             <Text style={styles.text}>Email: {data.userCurrent.email}</Text>
             <Text style={styles.text}>Имя: {data.userCurrent.firstname}</Text>
             <Text style={styles.text}>Фамилия: {data.userCurrent.lastname}</Text>
-            <Text style={styles.text}>Роль: {data.userCurrent.role}</Text>
-            <Text style={styles.text}>Дата создания: {data.userCurrent.createdAt}</Text>
-            <Text style={styles.text}>Дата обновления: {data.userCurrent.updatedAt}</Text>
+            <Text style={styles.text}>Дата регистрации: {new Date(data.userCurrent.createdAt).toLocaleDateString()}</Text>
         </View>
     );
 }
