@@ -1,7 +1,7 @@
 import { gql } from 'graphql-tag'
 
 export const TRACKERS_BY_ID_QUERY = gql`
-    query channel($id: String!) {
+    query tracker($id: String!) {
         tracker(id: $id) {
             id
             title

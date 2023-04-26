@@ -27,6 +27,7 @@ export const globalStyles = StyleSheet.create({
         borderRadius: 2,
         fontFamily: 'Montserrat-500',
         color: s.white,
+        textAlign: 'center'
     },
     touchableOpacity: {
         backgroundColor: s.lightGrey,

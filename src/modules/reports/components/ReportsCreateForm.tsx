@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {Modal, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import {Modal, Text, TextInput, TouchableHighlight, TouchableOpacity, View} from 'react-native';
 import {Formik} from 'formik';
 import {useMutation} from "@apollo/client";
 import {REPORTS_CREATE_MUTATION} from "../api/ReportsCreate.api";
@@ -87,10 +87,10 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
     const initialValues = {
         title: '',
         description: '',
-        priority: priorityOptions[0],
-        status: statusOptions[0],
-        type: typeOptions[0],
-        responsiblePersonId: responsiblePersonOptions[0]
+        priority: priorityOptions[0].value,
+        status: statusOptions[0].value,
+        type: typeOptions[0].value,
+        responsiblePersonId: responsiblePersonOptions[0].value
     };
 
     return (
@@ -154,14 +154,7 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
                                 ))}
                             </Picker>
                             <TouchableHighlight onPress={() => formikProps.handleSubmit()}>
-                                <Text>Создать</Text>
-                            </TouchableHighlight>
-                            <TouchableHighlight
-                                onPress={() => {
-                                    onClose()
-                                }}
-                            >
-                                <Text>Закрыть</Text>
+                                Создать
                             </TouchableHighlight>
                         </View>
                     )}
@@ -172,7 +165,7 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
                         onClose()
                     }}
                 >
-                    <Text>Show Modal</Text>
+                    Создать
                 </TouchableHighlight>
             </Modal>
         </View>
