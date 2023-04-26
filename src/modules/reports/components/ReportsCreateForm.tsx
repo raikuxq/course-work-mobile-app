@@ -4,6 +4,12 @@ import {Formik} from 'formik';
 import {useMutation} from "@apollo/client";
 import {REPORTS_CREATE_MUTATION} from "../api/ReportsCreate.api";
 import {Picker} from '@react-native-picker/picker';
+import {
+    EnumPriority, EnumStatus, EnumType,
+    priorityOptionsList as priorityOptions,
+    statusOptionsList as statusOptions,
+    typeOptionsList as typeOptions
+} from "../../../common/constants/options";
 
 type TReportsCreateFormMember = {
     id: string;
@@ -53,27 +59,6 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
 
     };
 
-    const priorityOptions = [
-        {label: 'Критический', value: 'CRITICAL'},
-        {label: 'Высокий', value: 'HIGH'},
-        {label: 'Низкий', value: 'LOW'},
-        {label: 'Обычный', value: 'NORMAL'},
-    ];
-
-    const statusOptions = [
-        {label: 'Закрыто', value: 'CLOSED'},
-        {label: 'Обсуждение', value: 'DISCUSSION'},
-        {label: 'Выполнение', value: 'FULFILMENT'},
-        {label: 'Готово', value: 'READY'},
-        {label: 'На утверждении', value: 'TO_APPROVE'},
-    ];
-
-    const typeOptions = [
-        {label: 'Функциональность', value: 'FUNCTIONALITY'},
-        {label: 'Отчетность', value: 'REPORTING'},
-        {label: 'Интерфейс', value: 'UI'},
-        {label: 'Уязвимость', value: 'VULNERABILITY'},
-    ];
 
     const responsiblePersonOptions = useMemo(() => {
         return members.map(memberItem => {
@@ -87,9 +72,9 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
     const initialValues = {
         title: '',
         description: '',
-        priority: priorityOptions[0].value,
-        status: statusOptions[0].value,
-        type: typeOptions[0].value,
+        priority: EnumPriority.NORMAL,
+        status: EnumStatus.FULFILMENT,
+        type: EnumType.FUNCTIONALITY,
         responsiblePersonId: responsiblePersonOptions[0].value
     };
 
@@ -153,20 +138,27 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
                                     <Picker.Item key={option.value} label={option.label} value={option.value} />
                                 ))}
                             </Picker>
+
+                            <Text style={{marginBottom: 10}} />
+
                             <TouchableHighlight onPress={() => formikProps.handleSubmit()}>
-                                Создать
+                                <Text>
+                                    Создать
+                                </Text>
                             </TouchableHighlight>
                         </View>
                     )}
                 </Formik>
 
-                <TouchableHighlight
+                <TouchableOpacity
                     onPress={() => {
                         onClose()
                     }}
                 >
-                    Создать
-                </TouchableHighlight>
+                    <Text>
+                        Закрыть
+                    </Text>
+                </TouchableOpacity>
             </Modal>
         </View>
     );

@@ -3,6 +3,7 @@
     import ChannelsListScreen from "./ChannelsListScreen";
     import ChannelsDetailsScreen from "./ChannelsDetailsScreen";
     import TrackersDetailsScreen from "../../trackers/routes/TrackersDetailsScreen";
+    import ReportDetailsScreen from "../../reports/pages/ReportsDetailsScreen";
 
     const Stack = createStackNavigator();
 
@@ -22,6 +23,12 @@
                 <Stack.Screen
                     name="TrackerDetails"
                     component={TrackersDetailsScreen}
+                    /** @ts-ignore */
+                    options={({ route }) => ({ id: route.params.id })}
+                />
+                <Stack.Screen
+                    name="IssueReportDetails"
+                    component={ReportDetailsScreen}
                     /** @ts-ignore */
                     options={({ route }) => ({ id: route.params.id })}
                 />

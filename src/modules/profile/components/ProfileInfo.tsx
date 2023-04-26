@@ -1,13 +1,11 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useQuery } from '@apollo/client';
 import { PROFILE_INFO_QUERY } from '../api/ProfileInfoQuery.api';
+import {dateFormat} from "../../../../src/common/utils/dateFormat";
 
 export function ProfileInfo() {
 
-    // return (
-    //     <Text style={styles.text}>Профиль тут</Text>
-    // )
     const { loading, error, data } = useQuery(PROFILE_INFO_QUERY);
 
     if (loading) {
@@ -24,7 +22,7 @@ export function ProfileInfo() {
             <Text style={styles.text}>Email: {data.userCurrent.email}</Text>
             <Text style={styles.text}>Имя: {data.userCurrent.firstname}</Text>
             <Text style={styles.text}>Фамилия: {data.userCurrent.lastname}</Text>
-            <Text style={styles.text}>Дата регистрации: {new Date(data.userCurrent.createdAt).toLocaleDateString()}</Text>
+            <Text style={styles.text}>Дата регистрации: {dateFormat(data.userCurrent.createdAt)}</Text>
         </View>
     );
 }

@@ -67,9 +67,14 @@ export default function TrackersDetailsScreen({ navigation, route }) {
 
             <View>
                 {data.tracker.reports.map((report) => (
-                    <Text key={report.id}>
-                        {report.title}, {report.author.user.firstname} - {report.author.role}
-                    </Text>
+                    <TouchableOpacity
+                        key={report.id}
+                        onPress={() => navigation.navigate('IssueReportDetails', { id: report.id })}
+                    >
+                        <Text>
+                            {report.title}, {report.author.user.firstname} - {report.author.role}
+                        </Text>
+                    </TouchableOpacity>
                 ))}
             </View>
         </View>
