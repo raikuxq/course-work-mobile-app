@@ -9,6 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {AUTH_LOGIN_MUTATION} from "../../api/AuthLoginMutation.api";
+import {VALIDATION_RULES} from "../../../../common/constants/validation";
 
 export const AuthLoginForm = () => {
     const navigation = useNavigation();
@@ -19,9 +20,12 @@ export const AuthLoginForm = () => {
     const initialValues = {email: '', password: ''};
 
     const validationSchema = Yup.object({
-        email: Yup.string().email('Invalid email address').required('Required'),
-        password: Yup.string().required('Required'),
-    });
+        email: Yup.string()
+            .email('Некорректный e-mail')
+            .required('Обязательно'),
+        password: Yup.string()
+            .required('Обязательно')
+            .min(VALIDATION_RULES.PASSWORD.MIN, `Минимум ${VALIDATION_RULES.PASSWORD.MIN} символов`),    });
 
     const handleLogin = async (values) => {
         try {
