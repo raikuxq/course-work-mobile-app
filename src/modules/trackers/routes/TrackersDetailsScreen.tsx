@@ -23,8 +23,8 @@ export default function TrackersDetailsScreen({ navigation, route }) {
         navigation.setOptions({ title: `Трекер: ${title}` });
     }, [navigation, data]);
 
-    if (loading) return <Text>Loading...</Text>;
-    if (error) return <Text>Error :(</Text>;
+    if (loading) return <Text>Загрузка...</Text>;
+    if (error) return <Text>Ошибка :(</Text>;
 
     return (
         <View>

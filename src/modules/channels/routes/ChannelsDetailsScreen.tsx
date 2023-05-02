@@ -30,8 +30,8 @@ export default function ChannelsDetailsScreen({navigation, route}) {
     }, [navigation, data, loading]);
 
 
-    if (loading) return <Text>Loading...</Text>;
-    if (error) return <Text>Error :(</Text>;
+    if (loading) return <Text>Загрузка...</Text>;
+    if (error) return <Text>Ошибка :(</Text>;
 
     return (
         <View style={styles.container}>

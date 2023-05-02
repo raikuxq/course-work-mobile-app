@@ -9,7 +9,7 @@ export function ProfileInfo() {
     const { loading, error, data } = useQuery(PROFILE_INFO_QUERY);
 
     if (loading) {
-        return <Text>Loading...</Text>;
+        return <Text>Загрузка...</Text>;
     }
 
     if (error) {
