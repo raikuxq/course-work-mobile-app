@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useQuery} from "@apollo/client";
 import {TRACKERS_BY_ID_QUERY} from "../../trackers/api/TrackersById.api";
 import ReportsCreateForm from "../../../modules/reports/components/ReportsCreateForm";
@@ -30,7 +30,6 @@ export default function TrackersDetailsScreen({ navigation, route }) {
         <View>
             <View style={styles.container}>
                 <Text>{'\nТрекер\n'}</Text>
-                <Text>{data.tracker.id || ''}</Text>
                 <Text>{data.tracker.title || ''}</Text>
                 <Text>{data.tracker.description || ''}</Text>
             </View>
@@ -51,15 +50,11 @@ export default function TrackersDetailsScreen({ navigation, route }) {
                                 visible={modalVisible}
                             />
                         ) : (
-                            <TouchableOpacity
+                            <Button
+                                title='Создать репорт'
                                 /* @ts-ignore */
                                 onPress={() => setModalVisible(true)}
-                            >
-                                <Text >
-                                    {'Создать репорт'}
-                                </Text>
-                            </TouchableOpacity>
-
+                            />
                         )
                     }
                 </View>

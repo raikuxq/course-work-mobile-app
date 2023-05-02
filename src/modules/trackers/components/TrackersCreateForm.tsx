@@ -1,19 +1,22 @@
 import React from 'react';
 import { useMutation } from '@apollo/client';
 import { Formik, Form, Field } from 'formik';
-import { View, Text, TextInput, Button } from 'react-native';
+import {View, Text, TextInput, Button, Modal, TouchableOpacity, Alert} from 'react-native';
 import * as Yup from 'yup';
 import {TRACKER_CREATE_MUTATION} from "../api/TrackersCreate.api";
+import {useNavigation} from "@react-navigation/native";
 
 type TTrackersCreateForm = {
     channelId: string;
     channelCategoryId: string;
+    onClose: () => void;
+    visible: boolean;
 }
 
 export const TrackersCreateForm = (props: TTrackersCreateForm) => {
-    const { channelId, channelCategoryId } = props;
+    const { channelId, channelCategoryId, visible, onClose } = props;
 
-    console.log(channelId, channelCategoryId)
+    const navigation = useNavigation();
 
     const initialValues = {
         title: '',
@@ -38,14 +41,16 @@ export const TrackersCreateForm = (props: TTrackersCreateForm) => {
                 },
             });
             resetForm();
-            alert('Tracker created!');
+            onClose()
 
-            console.log('DATA___');
-            console.log(data);
-            console.log(data.trackerCreate);
-        } catch (err) {
-            console.error(err);
-            alert('Error creating tracker');
+            // @ts-ignore
+            navigation.navigate('TrackerDetails', { id: data.trackerCreate.id })
+        } catch (error) {
+            const alertMessage = error?.extensions?.message ?? error?.message
+
+            if (alertMessage) {
+                Alert.alert('Ошибка создания трекера', error.message)
+            }
         }
         setSubmitting(false);
     };
@@ -55,36 +60,54 @@ export const TrackersCreateForm = (props: TTrackersCreateForm) => {
     }
 
     return (
-        <View>
-            <Text>Создать трекер</Text>
-            <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
+        <View style={{marginTop: 50}}>
+            <Modal
+                animationType="slide"
+                transparent={false}
+                visible={visible}
+                onRequestClose={() => {
+                    onClose()
+                }}
             >
-                {({ isSubmitting, handleChange, handleBlur, handleSubmit, values }) => (
-                    <View>
-                        <Text>Заголовок:</Text>
-                        <TextInput
-                            onChangeText={handleChange('title')}
-                            onBlur={handleBlur('title')}
-                            value={values.title}
-                        />
-                        <Text>Описание:</Text>
-                        <TextInput
-                            onChangeText={handleChange('description')}
-                            onBlur={handleBlur('description')}
-                            value={values.description}
-                            multiline={true}
-                        />
-                        <Button
-                            onPress={() => handleSubmit()}
-                            title="Подтвердить"
-                            disabled={isSubmitting}
-                        />
-                    </View>
-                )}
-            </Formik>
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={handleSubmit}
+                >
+                    {({ isSubmitting, handleChange, handleBlur, handleSubmit, values }) => (
+                        <View>
+                            <Text>Заголовок:</Text>
+                            <TextInput
+                                onChangeText={handleChange('title')}
+                                onBlur={handleBlur('title')}
+                                value={values.title}
+                            />
+                            <Text>Описание:</Text>
+                            <TextInput
+                                onChangeText={handleChange('description')}
+                                onBlur={handleBlur('description')}
+                                value={values.description}
+                                multiline={true}
+                            />
+                            <Button
+                                onPress={() => handleSubmit()}
+                                title="Подтвердить"
+                                disabled={isSubmitting}
+                            />
+                        </View>
+                    )}
+                </Formik>
+
+                <TouchableOpacity
+                    onPress={() => {
+                        onClose()
+                    }}
+                >
+                    <Text>
+                        Закрыть
+                    </Text>
+                </TouchableOpacity>
+            </Modal>
         </View>
     );
 };

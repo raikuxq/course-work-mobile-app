@@ -62,8 +62,9 @@ export const globalStyles = StyleSheet.create({
      */
     details: {
         borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
+        borderColor: s.black,
+        backgroundColor: s.white,
+        borderRadius: 2,
         padding: 10,
         fontFamily: 'Montserrat-500',
         color: s.black,

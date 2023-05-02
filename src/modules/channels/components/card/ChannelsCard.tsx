@@ -1,60 +1,9 @@
-// import React from 'react';
-// import {View, Text, TouchableOpacity, FlatList, ScrollView} from 'react-native';
-// import { useNavigation } from '@react-navigation/native';
-//
-// export const ChannelsCard = ({ author, members, categories, inviteLink }) => {
-//
-//     const navigation = useNavigation();
-//
-//     return (
-//         <View>
-//             <Text>
-//                 Автор: {author.firstname} {author.lastname}
-//             </Text>
-//
-//             <Text>
-//                 Код для приглашения: {inviteLink}
-//             </Text>
-//
-//
-//             <Text>Участники:</Text>
-//             <ScrollView>
-//                 {members.map((member) => (
-//                     <Text key={member.id}>
-//                         {member.lastname}, {member.firstname} - {member.role}
-//                     </Text>
-//                 ))}
-//             </ScrollView>
-//
-//
-//             <Text>Список трекеров:</Text>
-//             <ScrollView >
-//                 {categories.map((category) =>
-//                     category.trackers.map((tracker) => (
-//                         <TouchableOpacity
-//                             /* @ts-ignore */
-//                             onPress={() => navigation.navigate('TrackerDetails', { id: tracker.id })}
-//                             key={tracker.id}
-//                         >
-//                             <Text >
-//                                 {tracker.title}
-//                             </Text>
-//                         </TouchableOpacity>
-//                     ))
-//                 )}
-//             </ScrollView>
-//         </View>
-//     );
-// };
-
-
 import React from 'react';
 import {View, Text, TouchableOpacity, FlatList, ScrollView, StyleSheet} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import {s} from "../../../../styles/config";
 import {globalStyles} from "../../../../styles/globalStyles";
 
-export const ChannelsCard = ({ author, members, categories, inviteLink, description }) => {
+export const ChannelsCard = ({ author, members, categories, inviteLink, description, slot }) => {
 
     const navigation = useNavigation();
 
@@ -87,11 +36,10 @@ export const ChannelsCard = ({ author, members, categories, inviteLink, descript
                     ) : null
                 }
 
-
                 {
                     members?.length ? (
                         <>
-                            <Text style={styles.detailsItem}>
+                            <Text style={{...styles.detailsItem, marginTop: 15}}>
                                 <Text style={styles.detailsItemLabel}>Участники:</Text>
                             </Text>
 
@@ -107,6 +55,11 @@ export const ChannelsCard = ({ author, members, categories, inviteLink, descript
                 }
             </View>
 
+            {
+                slot ? slot : null
+            }
+
+            <Text>{'\n'}</Text>
             <Text>Список трекеров:</Text>
 
             <ScrollView >
