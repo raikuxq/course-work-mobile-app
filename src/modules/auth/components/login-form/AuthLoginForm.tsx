@@ -1,7 +1,7 @@
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import React, {useState} from 'react';
-import {View, TextInput, Button, Text} from 'react-native';
+import {View, TextInput, Button, Text, Alert} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {setUser} from '../../store/auth';
 import {useMutation} from '@apollo/client';
@@ -42,7 +42,11 @@ export const AuthLoginForm = () => {
             // @ts-ignore
             navigation.navigate("Channels");
         } catch (error) {
-            console.log(error);
+            const alertMessage = error?.extensions?.message ?? error?.message
+
+            if (alertMessage) {
+                Alert.alert('Ошибка регистрации', error.message)
+            }
         }
     };
 
