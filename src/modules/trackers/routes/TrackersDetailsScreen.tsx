@@ -28,20 +28,23 @@ export default function TrackersDetailsScreen({ navigation, route }) {
         <View>
             <View style={styles.details}>
                 <Text style={styles.detailsItem}>
-                    <Text style={styles.detailsItemLabel}>Название:</Text> {data.tracker.title || ''}
+                    <Text style={styles.detailsItemLabel}>Название:</Text> {data.tracker?.title || ''}
                 </Text>
                 <Text style={styles.detailsItem}>
-                    <Text style={styles.detailsItemLabel}>Описание:</Text> {data.tracker.description || ''}
+                    <Text style={styles.detailsItemLabel}>Описание:</Text> {data.tracker?.description || ''}
                 </Text>
                 <Text style={styles.detailsItem}>
-                    <Text style={styles.detailsItemLabel}>Дата создания:</Text> {dateFormat(data.tracker.createdAt)}
+                    <Text style={styles.detailsItemLabel}>Канал:</Text> {data.tracker?.channel?.title || ''}
+                </Text>
+                <Text style={styles.detailsItem}>
+                    <Text style={styles.detailsItemLabel}>Дата создания:</Text> {dateFormat(data.tracker?.createdAt)}
                 </Text>
             </View>
 
             <View>
                 {data.tracker.members.map((member) => (
-                    <Text key={member.id}>
-                        {'kekw'} {member.user.lastname}, {member.user.firstname} - {member.role}
+                    <Text key={member?.id}>
+                        {member?.user?.lastname} {member.user?.firstname} ({member?.role})
                     </Text>
                 ))}
 

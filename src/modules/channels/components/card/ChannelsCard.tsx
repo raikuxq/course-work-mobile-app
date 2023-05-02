@@ -39,17 +39,14 @@ export const ChannelsCard = ({ author, members, categories, inviteLink, descript
                 {
                     members?.length ? (
                         <>
-                            <Text style={{...styles.detailsItem, marginTop: 15}}>
-                                <Text style={styles.detailsItemLabel}>Участники:</Text>
+                            <Text style={styles.detailsItem}>
+                                <Text style={styles.detailsItemLabel}>Участники: </Text>
+                                {
+                                    members.map((member) => (
+                                        `${member.lastname} ${member.firstname.charAt(0)}.`
+                                    )).join(', ')
+                                }
                             </Text>
-
-                            <ScrollView>
-                                {members.map((member) => (
-                                    <Text key={member.id} style={styles.detailsItem}>
-                                        {member.lastname} {member.firstname}
-                                    </Text>
-                                ))}
-                            </ScrollView>
                         </>
                     ) : null
                 }

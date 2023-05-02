@@ -16,6 +16,9 @@ export const TRACKERS_BY_ID_QUERY = gql`
             }
             description
             createdAt
+            channel {
+                title
+            }
             reports {
                 id
                 title
