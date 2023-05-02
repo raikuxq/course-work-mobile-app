@@ -1,59 +1,43 @@
-import {useMutation, useQuery} from '@apollo/client';
+import {useMutation} from '@apollo/client';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { FlatList, Text, TouchableOpacity, View, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { CHANNEL_DELETE_MUTATION } from '../../api/ChannelsDelete.api';
-import { CHANNELS_LIST_SHORT_QUERY } from '../../api/ChannelsList.api';
 import {useSelector} from "react-redux";
 
 
-export const ChannelsList = () => {
-    const { loading, error, data } = useQuery(CHANNELS_LIST_SHORT_QUERY);
+export const ChannelsList = ({ computedData, onDelete }) => {
     const [deleteChannelMutation] = useMutation(CHANNEL_DELETE_MUTATION);
-
     const navigation = useNavigation();
-
-    const computedData = useMemo(() => {
-        if (!data) {
-            return [];
-        }
-
-        return Array.from(new Set([
-            ...data.userChannelsOwn,
-            ...data.userChannelsMemberOf.map(
-                (userChannel) => userChannel.channel
-            )
-        ]));
-    }, [data]);
-
-
     const store = useSelector((state) => state);
-    console.log(store)
 
     // @ts-ignore
     const userId = useSelector((state) => state.auth?.user?.id);
 
     const handleDeleteChannel = async (id) => {
-        await deleteChannelMutation({ variables: { id } });
-        // TODO: добавить alert, убрать удаление без подтверждения
-        // Alert.alert(
-        //     'Delete Channel',
-        //     'Вы правда хотите удалить канал?',
-        //     [
-        //         {
-        //             text: 'Отмена',
-        //             style: 'cancel'
-        //         },
-        //         {
-        //             text: 'Удалить',
-        //             onPress: async () => {
-        //                 await deleteChannelMutation({ variables: { id } });
-        //             },
-        //             style: 'destructive'
-        //         }
-        //     ]
-        // );
+        if (alert) {
+            await deleteChannelMutation({ variables: { id } });
+            onDelete?.()
+        }
+        Alert.alert(
+            'Удалить канал',
+            'Вы правда хотите удалить канал?',
+            [
+                {
+                    text: 'Отмена',
+                    style: 'cancel'
+                },
+                {
+                    text: 'Удалить',
+                    onPress: async () => {
+                        await deleteChannelMutation({ variables: { id } });
+                        onDelete?.()
+                    },
+                    style: 'destructive'
+                }
+            ]
+        );
     };
 
     const renderItem = ({ item }) => (
@@ -90,10 +74,6 @@ export const ChannelsList = () => {
             )}
         </View>
     );
-
-    if (loading) return <Text>Загрузка...</Text>;
-    if (error) return <Text>Ошибка :(</Text>;
-    if (!computedData?.length) return <Text>Здесь появится список каналов, в которых вы являетесь автором или участником.</Text>
 
     return (
         <View>

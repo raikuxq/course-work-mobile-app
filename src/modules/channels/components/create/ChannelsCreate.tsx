@@ -1,12 +1,16 @@
 import React from 'react';
 import { useMutation } from '@apollo/client';
 import { Formik, Form, Field } from 'formik';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
 import * as Yup from 'yup';
 import { CHANNEL_CREATE_MUTATION } from '../../api/ChannelsCreate.api';
 import { CHANNEL_CREATE_CATEGORY_MUTATION } from "../../api/ChannelsCreateCategory.api";
+import {useNavigation} from "@react-navigation/native";
 
 export const ChannelsCreate = () => {
+
+    const navigation = useNavigation();
+
     const [createChannel] = useMutation(CHANNEL_CREATE_MUTATION);
     const [createChannelCategory] = useMutation(CHANNEL_CREATE_CATEGORY_MUTATION);
 
@@ -29,7 +33,15 @@ export const ChannelsCreate = () => {
                 },
             });
             resetForm();
-            alert('Канал создан!');
+            Alert.alert('Канал создан!', '', [
+                {
+                    onPress: () => {
+                        // @ts-ignore
+                        navigation.navigate("Channels");
+                    },
+                    text: 'Ок'
+                }
+            ]);
 
             const { id: channelId } = data.channelCreate
 
