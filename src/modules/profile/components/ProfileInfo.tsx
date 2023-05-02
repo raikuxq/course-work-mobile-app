@@ -17,28 +17,12 @@ export function ProfileInfo() {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>ID: {data.userCurrent.id}</Text>
-            <Text style={styles.text}>Email: {data.userCurrent.email}</Text>
-            <Text style={styles.text}>Имя: {data.userCurrent.firstname}</Text>
-            <Text style={styles.text}>Фамилия: {data.userCurrent.lastname}</Text>
-            <Text style={styles.text}>Дата регистрации: {dateFormat(data.userCurrent.createdAt)}</Text>
+        <View>
+            <Text>ID: {data.userCurrent.id}</Text>
+            <Text>Email: {data.userCurrent.email}</Text>
+            <Text>Имя: {data.userCurrent.firstname}</Text>
+            <Text>Фамилия: {data.userCurrent.lastname}</Text>
+            <Text>Дата регистрации: {dateFormat(data.userCurrent.createdAt)}</Text>
         </View>
     );
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 10,
-        width: '100%',
-        flex: 1,
-        alignItems: 'stretch',
-        justifyContent: 'flex-start',
-    },
-    text: {
-        textAlign: 'left',
-        fontFamily: 'Montserrat-500',
-        marginBottom: 10,
-    }
-});
