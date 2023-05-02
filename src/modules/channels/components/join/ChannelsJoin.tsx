@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import {View, Text, TextInput, Button, Alert} from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import {useMutation} from "@apollo/client";
 import {CHANNEL_JOIN_TO_MUTATION} from "../../api/ChannelsJoinTo.api";
 import {CHANNELS_LIST_SHORT_QUERY} from '../../api/ChannelsList.api';
+import {useNavigation} from "@react-navigation/native";
 
 export const ChannelsJoin = () => {
+
+    const navigation = useNavigation();
+
     const [joinChannel, { loading }] = useMutation(CHANNEL_JOIN_TO_MUTATION, {
         refetchQueries: [{ query: CHANNELS_LIST_SHORT_QUERY }],
     });
@@ -25,6 +29,15 @@ export const ChannelsJoin = () => {
                 }
             });
             resetForm();
+            Alert.alert('Вы присоединились к каналу!', '', [
+                {
+                    onPress: () => {
+                        // @ts-ignore
+                        navigation.navigate("Channels");
+                    },
+                    text: 'Ок'
+                }
+            ]);
         } catch (error) {
             console.log(error);
         }
@@ -33,7 +46,7 @@ export const ChannelsJoin = () => {
 
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-            {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isSubmitting }) => (
+            {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, isSubmitting }) => (
                 <View>
                     <Text>Присоединиться к каналу</Text>
                     <TextInput
@@ -45,7 +58,7 @@ export const ChannelsJoin = () => {
                     <Button
                         title={loading ? '...' : 'Присоединиться'}
                         onPress={() => handleSubmit()}
-                        disabled={isSubmitting || loading}
+                        disabled={!isValid || isSubmitting || loading}
                     />
                 </View>
             )}
