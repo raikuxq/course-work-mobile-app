@@ -9,6 +9,7 @@ import {
     labelsStatus,
     labelsType
 } from "../../../common/constants/options";
+import {globalStyles} from "../../../styles/globalStyles";
 
 export default function ReportDetailsScreen ({ route, navigation }) {
     const { id } = route.params;
@@ -68,23 +69,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat-500',
         color: s.black,
     },
-    details: {
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        padding: 10,
-        fontFamily: 'Montserrat-500',
-        color: s.black,
-    },
-    detailsItem: {
-        fontSize: 14,
-        marginBottom: 5,
-        fontFamily: 'Montserrat-500',
-        color: s.black,
-    },
-    detailsItemLabel: {
-        fontWeight: 'bold',
-        fontFamily: 'Montserrat-500',
-        color: s.black,
-    },
+    details: globalStyles.details,
+    detailsItem: globalStyles.detailsItem,
+    detailsItemLabel: globalStyles.detailsItemLabel,
 });

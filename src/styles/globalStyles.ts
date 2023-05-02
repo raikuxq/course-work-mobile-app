@@ -52,6 +52,33 @@ export const globalStyles = StyleSheet.create({
         color: s.black,
         fontSize: 14,
         lineHeight: 24,
-        letterSpacing: 0.25,
+        letterSpacing: 0,
+    },
+
+
+
+    /**
+     * Custom
+     */
+    details: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+        padding: 10,
+        fontFamily: 'Montserrat-500',
+        color: s.black,
+    },
+    detailsItem: {
+        fontSize: 14,
+        marginBottom: 5,
+        fontFamily: 'Montserrat-500',
+        lineHeight: 24,
+        color: s.black,
+    },
+    detailsItemLabel: {
+        fontSize: 14,
+        fontFamily: 'Montserrat-600',
+        lineHeight: 24,
+        color: s.black,
     },
 });
