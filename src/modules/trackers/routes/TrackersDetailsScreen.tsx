@@ -15,10 +15,6 @@ export default function TrackersDetailsScreen({ navigation, route }) {
     });
 
     useEffect(() => {
-        console.log(data)
-    }, [data])
-
-    useEffect(() => {
         const title = data?.tracker?.title || ''
         navigation.setOptions({ title: `Трекер: ${title}` });
     }, [navigation, data]);

@@ -39,7 +39,11 @@ export const ChannelsJoin = () => {
                 }
             ]);
         } catch (error) {
-            console.log(error);
+            const alertMessage = error?.extensions?.message ?? error?.message
+
+            if (alertMessage) {
+                Alert.alert('Ошибка присоединения к каналу', error.message)
+            }
         }
         setSubmitting(false);
     };

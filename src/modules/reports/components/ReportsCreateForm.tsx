@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {Modal, Text, TextInput, TouchableHighlight, TouchableOpacity, View} from 'react-native';
+import {Alert, Modal, Text, TextInput, TouchableHighlight, TouchableOpacity, View} from 'react-native';
 import {Formik} from 'formik';
 import {useMutation} from "@apollo/client";
 import {REPORTS_CREATE_MUTATION} from "../api/ReportsCreate.api";
@@ -34,7 +34,6 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
     const [createReport] = useMutation(REPORTS_CREATE_MUTATION);
 
     const handleSubmit = async (values) => {
-        console.log(values);
         try {
             const request = await createReport({
                 variables: {
@@ -47,11 +46,12 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
                     responsiblePersonId: values.responsiblePersonId
                 }
             })
-            console.log('SUCCESS IN SENDING REPORT')
-            console.log(request)
-        } catch (e) {
-            console.log('ERROR IN SENDING REPORT')
-            console.log(e)
+        } catch (error) {
+            const alertMessage = error?.extensions?.message ?? error?.message
+
+            if (alertMessage) {
+                Alert.alert('Ошибка создания баг-репорта', error.message)
+            }
         } finally {
             onClose()
         }

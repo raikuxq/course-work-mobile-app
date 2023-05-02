@@ -28,7 +28,7 @@ const refreshToken = async (): Promise<string | null> => {
             return token;
         }
     } catch (e) {
-        console.log(e);
+
     }
 
 
@@ -46,7 +46,7 @@ const refreshToken = async (): Promise<string | null> => {
             return refreshToken;
         }
     } catch (e) {
-        console.log(e);
+
     }
 
     const response = await fetch(GRAPHQL_API_ENDPOINT_URL, {
@@ -112,40 +112,3 @@ const client = new ApolloClient({
 });
 
 export { client };
-
-// import { onError, ErrorLink } from '@apollo/client/link/error';
-//
-// const errorLink: ErrorLink = onError(async ({ graphQLErrors, networkError, operation, forward }) => {
-//     if (graphQLErrors) {
-//         for (let err of graphQLErrors) {
-//             if (err.extensions?.code === 'UNAUTHORIZED') { // или другой код ошибки 401, который возвращает сервер
-//                 const token = await refreshToken();
-//
-//                 if (token) {
-//                     operation.setContext({
-//                         headers: {
-//                             authorization: `Bearer ${token}`,
-//                         },
-//                     });
-//
-//                     return forward(operation);
-//                 }
-//             }
-//         }
-//     }
-//
-//     // @ts-ignore
-//     if (networkError && networkError.statusCode === 401) {
-//         const token = await refreshToken();
-//
-//         if (token) {
-//             operation.setContext({
-//                 headers: {
-//                     authorization: `Bearer ${token}`,
-//                 },
-//             });
-//
-//             return forward(operation);
-//         }
-//     }
-// });
