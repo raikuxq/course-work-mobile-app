@@ -10,6 +10,7 @@ import {
     statusOptionsList as statusOptions,
     typeOptionsList as typeOptions
 } from "../../../common/constants/options";
+import {useNavigation} from "@react-navigation/native";
 
 type TReportsCreateFormMember = {
     id: string;
@@ -32,6 +33,7 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
 
     const {trackerId, members, onClose, visible} = props
     const [createReport] = useMutation(REPORTS_CREATE_MUTATION);
+    const navigation = useNavigation();
 
     const handleSubmit = async (values) => {
         try {
@@ -46,6 +48,14 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
                     responsiblePersonId: values.responsiblePersonId
                 }
             })
+
+            const { data } = request
+
+            if (data.createReport) {
+                // @ts-ignore
+                navigation.navigate('IssueReportDetails', { id: data.createReport.id })
+            }
+
         } catch (error) {
             const alertMessage = error?.extensions?.message ?? error?.message
 

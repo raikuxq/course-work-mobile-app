@@ -10,7 +10,7 @@ export default function MainScreen({ navigation }) {
     }, [navigation]);
 
     return (
-        <View style={styles.container}>
+        <View>
             <ChannelsJoin />
             <Text>{'\n'}</Text>
             <ChannelsCreate />
@@ -18,14 +18,3 @@ export default function MainScreen({ navigation }) {
         </View>
     );
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 10,
-        width: '100%',
-        flex: 1,
-        alignItems: 'stretch',
-        justifyContent: 'center',
-    },
-});

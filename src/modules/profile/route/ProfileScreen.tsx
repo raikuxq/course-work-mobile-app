@@ -9,19 +9,8 @@ export default function ProfileScreen({ navigation }) {
     }, [navigation]);
 
     return (
-        <View style={styles.container}>
+        <View>
             <ProfileInfo />
         </View>
     );
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 10,
-        width: '100%',
-        flex: 1,
-        alignItems: 'stretch',
-        justifyContent: 'center',
-    },
-});

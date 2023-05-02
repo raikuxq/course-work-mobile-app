@@ -35,11 +35,11 @@ export default function ChannelsDetailsScreen({navigation, route}) {
     }, [navigation, data, loading]);
 
 
-    if (loading) return <Text>Загрузка...</Text>;
-    if (error) return <Text>Ошибка :(</Text>;
+    if (loading) return <View><Text>Загрузка...</Text></View>;
+    if (error) return <View><Text>Ошибка</Text></View>;
 
     return (
-        <View style={styles.container}>
+        <View>
             <ChannelsCard
                 slot={
                     userId === data.channel.author.id && (
@@ -71,13 +71,3 @@ export default function ChannelsDetailsScreen({navigation, route}) {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 10,
-        width: '100%',
-        flex: 1,
-        alignItems: 'stretch',
-        justifyContent: 'center',
-    },
-});

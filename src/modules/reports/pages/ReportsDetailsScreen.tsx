@@ -24,8 +24,8 @@ export default function ReportDetailsScreen ({ route, navigation }) {
         navigation.setOptions({ title: `${title}` });
     }, [navigation, data]);
 
-    if (loading) return <Text>Загрузка...</Text>;
-    if (error) return <Text>Ошибка :(</Text>;
+    if (loading) return <View><Text>Загрузка...</Text></View>;
+    if (error) return <View><Text>Ошибка</Text></View>;
 
 
     return (

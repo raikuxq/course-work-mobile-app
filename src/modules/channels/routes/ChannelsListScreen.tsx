@@ -39,8 +39,8 @@ export default function ChannelsListScreen({ navigation, route }) {
         refetch();
     }, [route])
 
-    if (loading) return <Text>Загрузка...</Text>;
-    if (error) return <Text>Ошибка :(</Text>;
+    if (loading) return <View><Text>Загрузка...</Text></View>;
+    if (error) return <View><Text>Ошибка</Text></View>;
     if (!computedData?.length) return <Text>Здесь появится список каналов, в которых вы являетесь автором или участником.</Text>
 
     return (
@@ -52,7 +52,7 @@ export default function ChannelsListScreen({ navigation, route }) {
                 />
             }
         >
-            <View style={styles.container}>
+            <View>
                 <ChannelsList
                     computedData={computedData}
                     onDelete={refetch}
@@ -62,13 +62,3 @@ export default function ChannelsListScreen({ navigation, route }) {
 
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 10,
-        width: '100%',
-        flex: 1,
-        alignItems: 'stretch',
-        justifyContent: 'center',
-    },
-});

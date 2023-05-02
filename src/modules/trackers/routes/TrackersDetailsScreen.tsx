@@ -3,6 +3,8 @@ import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useQuery} from "@apollo/client";
 import {TRACKERS_BY_ID_QUERY} from "../../trackers/api/TrackersById.api";
 import ReportsCreateForm from "../../../modules/reports/components/ReportsCreateForm";
+import {globalStyles} from "../../../styles/globalStyles";
+import {dateFormat} from "../../../common/utils/dateFormat";
 
 export default function TrackersDetailsScreen({ navigation, route }) {
 
@@ -19,20 +21,27 @@ export default function TrackersDetailsScreen({ navigation, route }) {
         navigation.setOptions({ title: `Трекер: ${title}` });
     }, [navigation, data]);
 
-    if (loading) return <Text>Загрузка...</Text>;
-    if (error) return <Text>Ошибка :(</Text>;
+    if (loading) return <View><Text>Загрузка...</Text></View>;
+    if (error) return <View><Text>Ошибка</Text></View>;
 
     return (
         <View>
-            <View style={styles.container}>
-                <Text>{'\nТрекер\n'}</Text>
-                <Text>{data.tracker.title || ''}</Text>
-                <Text>{data.tracker.description || ''}</Text>
+            <View style={styles.details}>
+                <Text style={styles.detailsItem}>
+                    <Text style={styles.detailsItemLabel}>Название:</Text> {data.tracker.title || ''}
+                </Text>
+                <Text style={styles.detailsItem}>
+                    <Text style={styles.detailsItemLabel}>Описание:</Text> {data.tracker.description || ''}
+                </Text>
+                <Text style={styles.detailsItem}>
+                    <Text style={styles.detailsItemLabel}>Дата создания:</Text> {dateFormat(data.tracker.createdAt)}
+                </Text>
             </View>
+
             <View>
                 {data.tracker.members.map((member) => (
                     <Text key={member.id}>
-                        {member.user.lastname}, {member.user.firstname} - {member.role}
+                        {'kekw'} {member.user.lastname}, {member.user.firstname} - {member.role}
                     </Text>
                 ))}
 
@@ -72,13 +81,8 @@ export default function TrackersDetailsScreen({ navigation, route }) {
     );
 }
 
-
 const styles = StyleSheet.create({
-    container: {
-        padding: 10,
-        width: '100%',
-        flex: 1,
-        alignItems: 'stretch',
-        justifyContent: 'flex-start',
-    },
+    details: globalStyles.details,
+    detailsItem: globalStyles.detailsItem,
+    detailsItemLabel: globalStyles.detailsItemLabel,
 });
