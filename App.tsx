@@ -11,6 +11,7 @@ import {
     setCustomTouchableOpacity,
     setCustomTouchableHighlight,
     setCustomView,
+    setCustomScrollView,
     setCustomTextInput
 } from 'react-native-global-props';
 import {globalStyles} from './src/styles/globalStyles';
@@ -21,6 +22,7 @@ const initStyles = () => {
     setCustomTouchableOpacity({style: globalStyles.touchableOpacity});
     setCustomTouchableHighlight({style: globalStyles.touchableHighlight});
     setCustomView({style: globalStyles.view});
+    setCustomScrollView({style: globalStyles.scrollView});
     setCustomTextInput({style: globalStyles.textInput});
 }
 
