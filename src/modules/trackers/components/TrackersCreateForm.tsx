@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMutation } from '@apollo/client';
 import { Formik, Form, Field } from 'formik';
-import {View, Text, TextInput, Button, Modal, TouchableOpacity, Alert} from 'react-native';
+import {View, Text, TextInput, Button, Modal, TouchableOpacity, Alert, SafeAreaView} from 'react-native';
 import * as Yup from 'yup';
 import {TRACKER_CREATE_MUTATION} from "../api/TrackersCreate.api";
 import {useNavigation} from "@react-navigation/native";
@@ -69,44 +69,48 @@ export const TrackersCreateForm = (props: TTrackersCreateForm) => {
                     onClose()
                 }}
             >
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    onSubmit={handleSubmit}
-                >
-                    {({ isSubmitting, handleChange, handleBlur, handleSubmit, values }) => (
-                        <View>
-                            <Text>Заголовок:</Text>
-                            <TextInput
-                                onChangeText={handleChange('title')}
-                                onBlur={handleBlur('title')}
-                                value={values.title}
-                            />
-                            <Text>Описание:</Text>
-                            <TextInput
-                                onChangeText={handleChange('description')}
-                                onBlur={handleBlur('description')}
-                                value={values.description}
-                                multiline={true}
-                            />
-                            <Button
-                                onPress={() => handleSubmit()}
-                                title="Подтвердить"
-                                disabled={isSubmitting}
-                            />
-                        </View>
-                    )}
-                </Formik>
+                <SafeAreaView style={{height: '100%', flex: 1}}>
 
-                <TouchableOpacity
-                    onPress={() => {
-                        onClose()
-                    }}
-                >
-                    <Text>
-                        Закрыть
-                    </Text>
-                </TouchableOpacity>
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}
+                        onSubmit={handleSubmit}
+                    >
+                        {({ isSubmitting, handleChange, handleBlur, handleSubmit, values }) => (
+                            <View>
+                                <Text>Заголовок:</Text>
+                                <TextInput
+                                    onChangeText={handleChange('title')}
+                                    onBlur={handleBlur('title')}
+                                    value={values.title}
+                                />
+                                <Text>Описание:</Text>
+                                <TextInput
+                                    onChangeText={handleChange('description')}
+                                    onBlur={handleBlur('description')}
+                                    value={values.description}
+                                    multiline={true}
+                                />
+                                <Button
+                                    onPress={() => handleSubmit()}
+                                    title="Подтвердить"
+                                    disabled={isSubmitting}
+                                />
+                            </View>
+                        )}
+                    </Formik>
+
+                    <TouchableOpacity
+                        onPress={() => {
+                            onClose()
+                        }}
+                    >
+                        <Text>
+                            Закрыть
+                        </Text>
+                    </TouchableOpacity>
+
+                </SafeAreaView>
             </Modal>
         </View>
     );

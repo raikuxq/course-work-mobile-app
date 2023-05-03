@@ -1,5 +1,15 @@
 import React, {useMemo, useState} from 'react';
-import {Alert, Button, Modal, Text, TextInput, TouchableHighlight, TouchableOpacity, View} from 'react-native';
+import {
+    Alert,
+    Button,
+    Modal, SafeAreaView,
+    ScrollView,
+    Text,
+    TextInput,
+    TouchableHighlight,
+    TouchableOpacity,
+    View
+} from 'react-native';
 import {Formik} from 'formik';
 import {useMutation} from "@apollo/client";
 import {REPORTS_UPDATE_MUTATION} from "../api/ReportsUpdate.api";
@@ -98,85 +108,89 @@ const ReportsUpdateForm = (props: TReportsUpdateForm) => {
 
     return (
         <View style={{marginTop: 50}}>
-            <Modal
-                animationType="slide"
-                transparent={false}
-                visible={visible}
-                onRequestClose={() => {
-                    onClose()
-                }}
-            >
-                <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-                    {(formikProps) => (
-                        <View>
-                            <TextInput
-                                placeholder="Название"
-                                onChangeText={formikProps.handleChange('title')}
-                                value={formikProps.values.title}
-                            />
-                            <TextInput
-                                placeholder="Описание"
-                                onChangeText={formikProps.handleChange('description')}
-                                value={formikProps.values.description}
-                            />
-                            <Picker
-                                prompt="Выберите приоритет"
-                                selectedValue={formikProps.values.priority}
-                                onValueChange={formikProps.handleChange('priority')}
-                            >
-                                {priorityOptions.map((option) => (
-                                    <Picker.Item key={option.value} label={option.label} value={option.value}/>
-                                ))}
-                            </Picker>
-                            <Picker
-                                prompt="Выберите статус"
-                                selectedValue={formikProps.values.status}
-                                onValueChange={formikProps.handleChange('status')}
-                            >
-                                {statusOptions.map((option) => (
-                                    <Picker.Item key={option.value} label={option.label} value={option.value}/>
-                                ))}
-                            </Picker>
-                            <Picker
-                                prompt="Выберите тип"
-                                selectedValue={formikProps.values.type}
-                                onValueChange={formikProps.handleChange('type')}
-                            >
-                                {typeOptions.map((option) => (
-                                    <Picker.Item key={option.value} label={option.label} value={option.value}/>
-                                ))}
-                            </Picker>
-
-                            <Picker
-                                prompt="Выбери ответственного"
-                                selectedValue={formikProps.values.responsiblePersonId}
-                                onValueChange={formikProps.handleChange('responsiblePersonId')}
-                            >
-                                {responsiblePersonOptions.map((option) => (
-                                    <Picker.Item key={option.value} label={option.label} value={option.value}/>
-                                ))}
-                            </Picker>
-
-                            <Text style={{marginBottom: 10}}/>
-
-                            <Button
-                                title={'Обновить'}
-                                onPress={() => formikProps.handleSubmit()}
-                            />
-                        </View>
-                    )}
-                </Formik>
-
-                <TouchableOpacity
-                    onPress={() => {
+            <ScrollView>
+                <Modal
+                    animationType="slide"
+                    transparent={false}
+                    visible={visible}
+                    onRequestClose={() => {
                         onClose()
                     }}
                 >
-                    <Text>
-                        Закрыть
-                    </Text>
-                </TouchableOpacity>
-            </Modal>
+                    <SafeAreaView style={{height: '100%', flex: 1}}>
+                        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+                            {(formikProps) => (
+                                <View>
+                                    <TextInput
+                                        placeholder="Название"
+                                        onChangeText={formikProps.handleChange('title')}
+                                        value={formikProps.values.title}
+                                    />
+                                    <TextInput
+                                        placeholder="Описание"
+                                        onChangeText={formikProps.handleChange('description')}
+                                        value={formikProps.values.description}
+                                    />
+                                    <Picker
+                                        prompt="Выберите приоритет"
+                                        selectedValue={formikProps.values.priority}
+                                        onValueChange={formikProps.handleChange('priority')}
+                                    >
+                                        {priorityOptions.map((option) => (
+                                            <Picker.Item key={option.value} label={option.label} value={option.value}/>
+                                        ))}
+                                    </Picker>
+                                    <Picker
+                                        prompt="Выберите статус"
+                                        selectedValue={formikProps.values.status}
+                                        onValueChange={formikProps.handleChange('status')}
+                                    >
+                                        {statusOptions.map((option) => (
+                                            <Picker.Item key={option.value} label={option.label} value={option.value}/>
+                                        ))}
+                                    </Picker>
+                                    <Picker
+                                        prompt="Выберите тип"
+                                        selectedValue={formikProps.values.type}
+                                        onValueChange={formikProps.handleChange('type')}
+                                    >
+                                        {typeOptions.map((option) => (
+                                            <Picker.Item key={option.value} label={option.label} value={option.value}/>
+                                        ))}
+                                    </Picker>
+
+                                    <Picker
+                                        prompt="Выбери ответственного"
+                                        selectedValue={formikProps.values.responsiblePersonId}
+                                        onValueChange={formikProps.handleChange('responsiblePersonId')}
+                                    >
+                                        {responsiblePersonOptions.map((option) => (
+                                            <Picker.Item key={option.value} label={option.label} value={option.value}/>
+                                        ))}
+                                    </Picker>
+
+                                    <Text style={{marginBottom: 10}}/>
+
+                                    <Button
+                                        title={'Обновить'}
+                                        onPress={() => formikProps.handleSubmit()}
+                                    />
+                                </View>
+                            )}
+                        </Formik>
+
+                        <TouchableOpacity
+                            onPress={() => {
+                                onClose()
+                            }}
+                        >
+                            <Text>
+                                Закрыть
+                            </Text>
+                        </TouchableOpacity>
+                    </SafeAreaView>
+                </Modal>
+            </ScrollView>
         </View>
     );
 };

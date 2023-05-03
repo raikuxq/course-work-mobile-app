@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {Alert, Modal, Text, TouchableHighlight, TouchableOpacity, View} from 'react-native';
+import {Alert, Modal, SafeAreaView, Text, TouchableHighlight, TouchableOpacity, View} from 'react-native';
 import {Formik} from 'formik';
 import {useMutation} from "@apollo/client";
 import {TRACKER_ADD_MEMBER_MUTATION} from "../api/TrackersAddMember.api";
@@ -72,49 +72,53 @@ const TrackersAddMemberForm = (props: TTrackersAddMemberForm) => {
                     onClose()
                 }}
             >
-                <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-                    {(formikProps) => (
-                        <View>
-                            <Picker
-                                prompt="Select Status"
-                                selectedValue={formikProps.values.role}
-                                onValueChange={formikProps.handleChange('role')}
-                            >
-                                {roleOptions.map((option) => (
-                                    <Picker.Item key={option.value} label={option.label} value={option.value} />
-                                ))}
-                            </Picker>
+                <SafeAreaView style={{height: '100%', flex: 1}}>
 
-                            <Picker
-                                prompt="Select Person"
-                                selectedValue={formikProps.values.userId}
-                                onValueChange={formikProps.handleChange('userId')}
-                            >
-                                {userOptions.map((option) => (
-                                    <Picker.Item key={option.value} label={option.label} value={option.value} />
-                                ))}
-                            </Picker>
+                    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+                        {(formikProps) => (
+                            <View>
+                                <Picker
+                                    prompt="Select Status"
+                                    selectedValue={formikProps.values.role}
+                                    onValueChange={formikProps.handleChange('role')}
+                                >
+                                    {roleOptions.map((option) => (
+                                        <Picker.Item key={option.value} label={option.label} value={option.value} />
+                                    ))}
+                                </Picker>
 
-                            <Text style={{marginBottom: 10}} />
+                                <Picker
+                                    prompt="Select Person"
+                                    selectedValue={formikProps.values.userId}
+                                    onValueChange={formikProps.handleChange('userId')}
+                                >
+                                    {userOptions.map((option) => (
+                                        <Picker.Item key={option.value} label={option.label} value={option.value} />
+                                    ))}
+                                </Picker>
 
-                            <TouchableHighlight onPress={() => formikProps.handleSubmit()}>
-                                <Text>
-                                    Добавить пользователя
-                                </Text>
-                            </TouchableHighlight>
-                        </View>
-                    )}
-                </Formik>
+                                <Text style={{marginBottom: 10}} />
 
-                <TouchableOpacity
-                    onPress={() => {
-                        onClose()
-                    }}
-                >
-                    <Text>
-                        Закрыть
-                    </Text>
-                </TouchableOpacity>
+                                <TouchableHighlight onPress={() => formikProps.handleSubmit()}>
+                                    <Text>
+                                        Добавить пользователя
+                                    </Text>
+                                </TouchableHighlight>
+                            </View>
+                        )}
+                    </Formik>
+
+                    <TouchableOpacity
+                        onPress={() => {
+                            onClose()
+                        }}
+                    >
+                        <Text>
+                            Закрыть
+                        </Text>
+                    </TouchableOpacity>
+
+                </SafeAreaView>
             </Modal>
         </View>
     );
