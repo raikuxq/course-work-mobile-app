@@ -27,6 +27,9 @@
       "developmentClient": true
     },
     "production": {
+      "android":  {
+        "buildType": "apk"
+      },
       "ios": {
         "resourceClass": "m-medium"
       }
