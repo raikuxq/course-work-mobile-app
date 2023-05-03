@@ -33,15 +33,6 @@ export const ChannelsCreate = () => {
                 },
             });
             resetForm();
-            Alert.alert('Канал создан!', '', [
-                {
-                    onPress: () => {
-                        // @ts-ignore
-                        navigation.navigate("Channels");
-                    },
-                    text: 'Ок'
-                }
-            ]);
 
             const { id: channelId } = data.channelCreate
 
@@ -52,8 +43,17 @@ export const ChannelsCreate = () => {
                         channelId: channelId,
                     },
                 });
-            }
 
+                Alert.alert('Канал создан!', '', [
+                    {
+                        onPress: () => {
+                            // @ts-ignore
+                            navigation.navigate("Channels");
+                        },
+                        text: 'Ок'
+                    }
+                ]);
+            }
         } catch (error) {
             const alertMessage = error?.extensions?.message ?? error?.message
 
