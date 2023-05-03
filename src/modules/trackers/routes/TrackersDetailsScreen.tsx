@@ -65,32 +65,37 @@ export default function TrackersDetailsScreen({navigation, route}) {
                         <Text style={styles.detailsItemLabel}>Список участников:</Text>
                     </Text>
 
-                    {data.tracker.members.filter((obj, index, self) =>
-                        index === self.findIndex((t) => (t.user?.firstname === obj.user?.firstname) && (t.user?.lastname === obj.user?.lastname) && t.role === obj.role)
-                    ).map((member) => (
-                        <Text key={member?.id}>
-                            {member?.user?.lastname} {member.user?.firstname} ({labelsRole[member?.role]})
-                        </Text>
-                    ))}
+                    {data.tracker.members
+                        .filter((obj, index, self) => index === self.findIndex((t) =>
+                            (t.user?.firstname === obj.user?.firstname) &&
+                            (t.user?.lastname === obj.user?.lastname) &&
+                            (t.role === obj.role)
+                        ))
+                        .map((member) => (
+                            <Text key={member?.id}>
+                                {member?.user?.lastname} {member.user?.firstname} ({labelsRole[member?.role]})
+                            </Text>
+                        ))
+                    }
 
-                    <View>
-                        {
-                            modalMemberVisible ? (
-                                <TrackersAddMemberForm
-                                    members={data.tracker.channel.members}
-                                    trackerId={data.tracker.id}
-                                    onClose={() => setModalMemberVisible(false)}
-                                    visible={modalMemberVisible}
-                                />
-                            ) : (
-                                <Button
-                                    title='Добавить участника'
-                                    /* @ts-ignore */
-                                    onPress={() => setModalMemberVisible(true)}
-                                />
-                            )
-                        }
-                    </View>
+                    <Text style={{marginBottom: 5}}/>
+
+                    {
+                        modalMemberVisible ? (
+                            <TrackersAddMemberForm
+                                members={[data.tracker.channel.author, ...data.tracker.channel.members]}
+                                trackerId={data.tracker.id}
+                                onClose={() => setModalMemberVisible(false)}
+                                visible={modalMemberVisible}
+                            />
+                        ) : (
+                            <Button
+                                title='Добавить участника'
+                                /* @ts-ignore */
+                                onPress={() => setModalMemberVisible(true)}
+                            />
+                        )
+                    }
                 </View>
 
                 <View style={{...styles.details, marginTop: 10}}>
@@ -103,7 +108,10 @@ export default function TrackersDetailsScreen({navigation, route}) {
                             <ReportsCreateForm
                                 members={data.tracker.members}
                                 trackerId={data.tracker.id}
-                                onClose={() => setModalReportVisible(false)}
+                                onClose={() => {
+                                    setModalReportVisible(false)
+                                    refetch()
+                                }}
                                 visible={modalReportVisible}
                             />
                         ) : (
@@ -115,14 +123,16 @@ export default function TrackersDetailsScreen({navigation, route}) {
                         )
                     }
 
-                    <View>
+                    <Text style={{marginBottom: 5}}/>
+
+                    <View style={{...globalStyles.view, paddingHorizontal: 0}}>
                         {data.tracker.reports.map((report) => (
                             <TouchableOpacity
                                 key={report.id}
                                 onPress={() => navigation.navigate('IssueReportDetails', {id: report.id})}
                             >
                                 <Text>
-                                    {report.title}, {report.author.user.firstname} - {report.author.role}
+                                    {report.title}
                                 </Text>
                             </TouchableOpacity>
                         ))}

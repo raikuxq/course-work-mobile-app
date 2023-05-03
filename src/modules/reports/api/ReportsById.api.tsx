@@ -8,17 +8,38 @@ export const ISSUE_REPORT_BY_ID_QUERY = gql`
             type
             status
             priority
-            author {
-                role
+            responsiblePerson {
                 id
+                role
                 user {
+                    id
                     firstname
                     lastname
                 }
             }
+            author {
+                role
+                id
+                user {
+                    id
+                    firstname
+                    lastname
+                }
+            }
+            tracker {
+                id
+                title
+                members {
+                    id
+                    user {
+                        id
+                        firstname
+                        lastname
+                    }
+                }
+            }
             description
             createdAt
-            
         }
     }
 `;

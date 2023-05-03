@@ -2,7 +2,7 @@ import React, {useMemo, useState} from 'react';
 import {Alert, Button, Modal, Text, TextInput, TouchableHighlight, TouchableOpacity, View} from 'react-native';
 import {Formik} from 'formik';
 import {useMutation} from "@apollo/client";
-import {REPORTS_CREATE_MUTATION} from "../api/ReportsCreate.api";
+import {REPORTS_UPDATE_MUTATION} from "../api/ReportsUpdate.api";
 import {Picker} from '@react-native-picker/picker';
 import {
     EnumPriority, EnumStatus, EnumType,
@@ -10,9 +10,17 @@ import {
     statusOptionsList as statusOptions,
     typeOptionsList as typeOptions
 } from "../../../common/constants/options";
-import {useNavigation} from "@react-navigation/native";
 
-type TReportsCreateFormMember = {
+type TReportsUpdateFormInitialValues = {
+    title: string;
+    description: string;
+    priority: EnumPriority;
+    status: EnumStatus;
+    type: EnumType;
+    responsiblePersonId: string;
+};
+
+type TReportsUpdateFormMember = {
     id: string;
     user: {
         firstname: string;
@@ -22,24 +30,24 @@ type TReportsCreateFormMember = {
     role: string;
 }
 
-type TReportsCreateForm = {
-    trackerId: string;
-    members: TReportsCreateFormMember[];
+type TReportsUpdateForm = {
+    issueReportId: string;
+    members: TReportsUpdateFormMember[];
     onClose: () => void;
     visible: boolean;
+    initialValues: TReportsUpdateFormInitialValues;
 }
 
-const ReportsCreateForm = (props: TReportsCreateForm) => {
+const ReportsUpdateForm = (props: TReportsUpdateForm) => {
 
-    const {trackerId, members, onClose, visible} = props
-    const [createReport] = useMutation(REPORTS_CREATE_MUTATION);
-    const navigation = useNavigation();
+    const {issueReportId, members, onClose, visible, initialValues: initialValuesProp} = props
+    const [updateReport] = useMutation(REPORTS_UPDATE_MUTATION);
 
     const handleSubmit = async (values) => {
         try {
-            const request = await createReport({
+            await updateReport({
                 variables: {
-                    trackerId,
+                    issueReportId,
                     title: values.title,
                     description: values.description,
                     priority: values.priority,
@@ -49,18 +57,12 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
                 }
             })
 
-            const {data} = request
-
-            if (data.createReport) {
-                // @ts-ignore
-                navigation.navigate('IssueReportDetails', {id: data.createReport.id})
-            }
-
+            Alert.alert('Баг-репорт успешно обновлен')
         } catch (error) {
             const alertMessage = error?.extensions?.message ?? error?.message
 
             if (alertMessage) {
-                Alert.alert('Ошибка создания баг-репорта', error.message)
+                Alert.alert('Ошибка обновления баг-репорта', error.message)
             }
         } finally {
             onClose()
@@ -86,12 +88,12 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
     }, [members])
 
     const initialValues = {
-        title: '',
-        description: '',
-        priority: EnumPriority.NORMAL,
-        status: EnumStatus.FULFILMENT,
-        type: EnumType.FUNCTIONALITY,
-        responsiblePersonId: responsiblePersonOptions[0].value
+        title: initialValuesProp?.title || '',
+        description: initialValuesProp?.description || '',
+        priority: initialValuesProp?.priority || EnumPriority.NORMAL,
+        status: initialValuesProp?.status || EnumStatus.FULFILMENT,
+        type: initialValuesProp?.type || EnumType.FUNCTIONALITY,
+        responsiblePersonId: initialValuesProp?.responsiblePersonId || responsiblePersonOptions[0].value
     };
 
     return (
@@ -158,8 +160,8 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
                             <Text style={{marginBottom: 10}}/>
 
                             <Button
+                                title={'Обновить'}
                                 onPress={() => formikProps.handleSubmit()}
-                                title={'Создать'}
                             />
                         </View>
                     )}
@@ -179,4 +181,4 @@ const ReportsCreateForm = (props: TReportsCreateForm) => {
     );
 };
 
-export default ReportsCreateForm;
+export default ReportsUpdateForm;

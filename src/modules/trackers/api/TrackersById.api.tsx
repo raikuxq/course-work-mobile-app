@@ -18,11 +18,15 @@ export const TRACKERS_BY_ID_QUERY = gql`
             createdAt
             channel {
                 title
+                author {
+                    id
+                    firstname
+                    lastname
+                }
                 members {
                     id
                     lastname
                     firstname
-                    role
                 }
             }
             reports {
