@@ -40,48 +40,42 @@ export const ChannelsList = ({ computedData, onDelete }) => {
         );
     };
 
-    const renderItem = ({ item }) => (
-        <View style={{ flexDirection: 'row', width: '100%' }}>
-            <View
-                style={{ flexGrow: 1 }}
-            >
-                <TouchableOpacity
-                    onPress={() =>
-                        // @ts-ignore
-                        navigation.navigate('ChannelDetails', { id: item.id })
-                    }
-                >
-                    <Text>{item.title}</Text>
-
-                </TouchableOpacity>
-            </View>
-
-
-            {/*{userId && userId === item.author.id && (*/}
-            {/*    <View*/}
-            {/*        style={{ marginLeft: 8 }}*/}
-            {/*    >*/}
-            {/*        <TouchableOpacity*/}
-            {/*            onPress={() => handleDeleteChannel(item.id)}*/}
-            {/*        >*/}
-            {/*            <MaterialCommunityIcons*/}
-            {/*                name="delete-outline"*/}
-            {/*                size={24}*/}
-            {/*                color="red"*/}
-            {/*            />*/}
-            {/*        </TouchableOpacity>*/}
-            {/*    </View>*/}
-            {/*)}*/}
-        </View>
-    );
-
     return (
         <View>
-            <FlatList
-                data={computedData}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-            />
+            {
+                computedData.map((item, index) => (
+                    <View style={{ flexDirection: 'row', width: '100%' }} key={`${item.id}`}>
+                        <View style={{ flexGrow: 1 }}>
+                            <TouchableOpacity
+                                onPress={() =>
+                                    // @ts-ignore
+                                    navigation.navigate('ChannelDetails', { id: item.id })
+                                }
+                            >
+                                <Text>{item.title}</Text>
+
+                            </TouchableOpacity>
+                        </View>
+
+
+                        {/*{userId && userId === item.author.id && (*/}
+                        {/*    <View*/}
+                        {/*        style={{ marginLeft: 8 }}*/}
+                        {/*    >*/}
+                        {/*        <TouchableOpacity*/}
+                        {/*            onPress={() => handleDeleteChannel(item.id)}*/}
+                        {/*        >*/}
+                        {/*            <MaterialCommunityIcons*/}
+                        {/*                name="delete-outline"*/}
+                        {/*                size={24}*/}
+                        {/*                color="red"*/}
+                        {/*            />*/}
+                        {/*        </TouchableOpacity>*/}
+                        {/*    </View>*/}
+                        {/*)}*/}
+                    </View>
+                ))
+            }
         </View>
     );
 };

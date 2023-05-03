@@ -23,10 +23,11 @@ const AuthScreen = ({ navigation }) => {
             indicatorStyle={{ backgroundColor: s.blue }}
             style={{ backgroundColor: s.white }}
             renderLabel={({ route, focused }) => (
-                // @ts-ignore
-                <Text style={{ color: focused ? s.blue : '#A9A9A9', transform: focused ? 'translate(10px, 10px)' : 'none' }}>
-                    {route.title}
-                </Text>
+                <View style={{ alignContent: 'flex-end', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{ color: focused ? s.blue : '#A9A9A9'}}>
+                        {route.title}
+                    </Text>
+                </View>
             )}
         />
     );

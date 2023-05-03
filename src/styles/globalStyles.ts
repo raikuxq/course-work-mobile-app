@@ -19,7 +19,6 @@ export const globalStyles = StyleSheet.create({
         fontFamily: 'Montserrat-500',
         fontSize: 14,
         color: s.black,
-        placeholderTextColor: s.gray,
     },
     touchableHighlight: {
         backgroundColor: s.blue,

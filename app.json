@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "course-work-mobile-app",
+    "name": "IssueTracker",
     "slug": "course-work-mobile-app",
+    "displayName": "Issue Tracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
