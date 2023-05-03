@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet, ScrollView, RefreshControl, Button} from 'react-native';
 import { useQuery } from '@apollo/client';
 import { ISSUE_REPORT_BY_ID_QUERY } from '../api/ReportsById.api';
-import {s} from "../../../../src/styles/config";
 import {dateFormat} from "../../../../src/common/utils/dateFormat";
 import {
     labelsPriority,
@@ -70,7 +69,7 @@ export default function ReportDetailsScreen ({ route, navigation }) {
                     </Text>
                 </View>
 
-                <Text style={styles.description}>{'\n'}{issueReport.description}{'\n'}</Text>
+                <Text>{'\n'}{issueReport.description}{'\n'}</Text>
 
                 {
                     modalReportVisible ? (
@@ -105,18 +104,6 @@ export default function ReportDetailsScreen ({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-    author: {
-        fontSize: 14,
-        marginBottom: 10,
-        fontFamily: 'Montserrat-500',
-        color: s.black,
-    },
-    description: {
-        fontSize: 14,
-        marginBottom: 20,
-        fontFamily: 'Montserrat-500',
-        color: s.black,
-    },
     details: globalStyles.details,
     detailsItem: globalStyles.detailsItem,
     detailsItemLabel: globalStyles.detailsItemLabel,
