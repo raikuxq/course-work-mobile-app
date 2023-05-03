@@ -66,7 +66,6 @@ export const ChannelsCreate = () => {
 
     return (
         <View>
-            <Text>Создать канал</Text>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
@@ -74,14 +73,14 @@ export const ChannelsCreate = () => {
             >
                 {({ isSubmitting, handleChange, handleBlur, handleSubmit, values }) => (
                     <View>
-                        <Text>Заголовок:</Text>
                         <TextInput
+                            placeholder={'Заголовок'}
                             onChangeText={handleChange('title')}
                             onBlur={handleBlur('title')}
                             value={values.title}
                         />
-                        <Text>Описание:</Text>
                         <TextInput
+                            placeholder={'Описание'}
                             onChangeText={handleChange('description')}
                             onBlur={handleBlur('description')}
                             value={values.description}

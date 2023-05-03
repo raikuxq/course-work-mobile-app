@@ -49,23 +49,25 @@ export const ChannelsJoin = () => {
     };
 
     return (
-        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-            {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, isSubmitting }) => (
-                <View>
-                    <Text>Присоединиться к каналу</Text>
-                    <TextInput
-                        onChangeText={handleChange('inviteLink')}
-                        onBlur={handleBlur('inviteLink')}
-                        value={values.inviteLink}
-                    />
-                    {touched.inviteLink && errors.inviteLink && <Text style={{ color: 'red' }}>{errors.inviteLink.toString()}</Text>}
-                    <Button
-                        title={loading ? '...' : 'Присоединиться'}
-                        onPress={() => handleSubmit()}
-                        disabled={!isValid || isSubmitting || loading}
-                    />
-                </View>
-            )}
-        </Formik>
+        <View>
+            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+                {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, isSubmitting }) => (
+                    <View>
+                        <TextInput
+                            placeholder={'Код приглашения'}
+                            onChangeText={handleChange('inviteLink')}
+                            onBlur={handleBlur('inviteLink')}
+                            value={values.inviteLink}
+                        />
+                        {touched.inviteLink && errors.inviteLink && <Text style={{ color: 'red' }}>{errors.inviteLink.toString()}</Text>}
+                        <Button
+                            title={loading ? '...' : 'Присоединиться'}
+                            onPress={() => handleSubmit()}
+                            disabled={!isValid || isSubmitting || loading}
+                        />
+                    </View>
+                )}
+            </Formik>
+        </View>
     );
 };
