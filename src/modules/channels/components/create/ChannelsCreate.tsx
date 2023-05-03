@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMutation } from '@apollo/client';
-import { Formik, Form, Field } from 'formik';
+import { Formik } from 'formik';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import * as Yup from 'yup';
 import { CHANNEL_CREATE_MUTATION } from '../../api/ChannelsCreate.api';
@@ -54,9 +54,12 @@ export const ChannelsCreate = () => {
                 });
             }
 
-        } catch (err) {
-            console.error(err);
-            alert('Error creating channel');
+        } catch (error) {
+            const alertMessage = error?.extensions?.message ?? error?.message
+
+            if (alertMessage) {
+                Alert.alert('Ошибка создания канала', error.message)
+            }
         }
         setSubmitting(false);
     };
