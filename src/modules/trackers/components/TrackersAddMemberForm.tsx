@@ -78,7 +78,7 @@ const TrackersAddMemberForm = (props: TTrackersAddMemberForm) => {
                         {(formikProps) => (
                             <View>
                                 <Picker
-                                    prompt="Select Status"
+                                    prompt="Выберите статус"
                                     selectedValue={formikProps.values.role}
                                     onValueChange={formikProps.handleChange('role')}
                                 >
@@ -88,7 +88,7 @@ const TrackersAddMemberForm = (props: TTrackersAddMemberForm) => {
                                 </Picker>
 
                                 <Picker
-                                    prompt="Select Person"
+                                    prompt="Выберите участника"
                                     selectedValue={formikProps.values.userId}
                                     onValueChange={formikProps.handleChange('userId')}
                                 >
