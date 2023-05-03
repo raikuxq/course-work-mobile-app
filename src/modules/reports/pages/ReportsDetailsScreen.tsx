@@ -77,7 +77,7 @@ export default function ReportDetailsScreen ({ route, navigation }) {
                         <ReportsUpdateForm
                             initialValues={{
                                 title: issueReport.title,
-                                responsiblePersonId: issueReport.responsiblePersonId,
+                                responsiblePersonId: issueReport.responsiblePerson.id,
                                 type:  issueReport.type,
                                 status: issueReport.status,
                                 description: issueReport.description,

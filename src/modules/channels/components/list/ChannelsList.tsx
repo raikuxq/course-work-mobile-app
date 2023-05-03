@@ -57,21 +57,21 @@ export const ChannelsList = ({ computedData, onDelete }) => {
             </View>
 
 
-            {userId && userId === item.author.id && (
-                <View
-                    style={{ marginLeft: 8 }}
-                >
-                    <TouchableOpacity
-                        onPress={() => handleDeleteChannel(item.id)}
-                    >
-                        <MaterialCommunityIcons
-                            name="delete-outline"
-                            size={24}
-                            color="red"
-                        />
-                    </TouchableOpacity>
-                </View>
-            )}
+            {/*{userId && userId === item.author.id && (*/}
+            {/*    <View*/}
+            {/*        style={{ marginLeft: 8 }}*/}
+            {/*    >*/}
+            {/*        <TouchableOpacity*/}
+            {/*            onPress={() => handleDeleteChannel(item.id)}*/}
+            {/*        >*/}
+            {/*            <MaterialCommunityIcons*/}
+            {/*                name="delete-outline"*/}
+            {/*                size={24}*/}
+            {/*                color="red"*/}
+            {/*            />*/}
+            {/*        </TouchableOpacity>*/}
+            {/*    </View>*/}
+            {/*)}*/}
         </View>
     );
 

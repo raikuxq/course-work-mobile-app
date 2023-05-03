@@ -110,17 +110,17 @@ const ReportsUpdateForm = (props: TReportsUpdateForm) => {
                     {(formikProps) => (
                         <View>
                             <TextInput
-                                placeholder="Title"
+                                placeholder="Название"
                                 onChangeText={formikProps.handleChange('title')}
                                 value={formikProps.values.title}
                             />
                             <TextInput
-                                placeholder="Description"
+                                placeholder="Описание"
                                 onChangeText={formikProps.handleChange('description')}
                                 value={formikProps.values.description}
                             />
                             <Picker
-                                prompt="Select Priority"
+                                prompt="Выберите приоритет"
                                 selectedValue={formikProps.values.priority}
                                 onValueChange={formikProps.handleChange('priority')}
                             >
@@ -129,7 +129,7 @@ const ReportsUpdateForm = (props: TReportsUpdateForm) => {
                                 ))}
                             </Picker>
                             <Picker
-                                prompt="Select Status"
+                                prompt="Выберите статус"
                                 selectedValue={formikProps.values.status}
                                 onValueChange={formikProps.handleChange('status')}
                             >
@@ -138,7 +138,7 @@ const ReportsUpdateForm = (props: TReportsUpdateForm) => {
                                 ))}
                             </Picker>
                             <Picker
-                                prompt="Select Type"
+                                prompt="Выберите тип"
                                 selectedValue={formikProps.values.type}
                                 onValueChange={formikProps.handleChange('type')}
                             >
@@ -148,7 +148,7 @@ const ReportsUpdateForm = (props: TReportsUpdateForm) => {
                             </Picker>
 
                             <Picker
-                                prompt="Select Person"
+                                prompt="Выбери ответственного"
                                 selectedValue={formikProps.values.responsiblePersonId}
                                 onValueChange={formikProps.handleChange('responsiblePersonId')}
                             >
