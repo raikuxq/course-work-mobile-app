@@ -85,7 +85,10 @@ export default function TrackersDetailsScreen({navigation, route}) {
                             <TrackersAddMemberForm
                                 members={[data.tracker.channel.author, ...data.tracker.channel.members]}
                                 trackerId={data.tracker.id}
-                                onClose={() => setModalMemberVisible(false)}
+                                onClose={() => {
+                                    setModalMemberVisible(false)
+                                    refetch()
+                                }}
                                 visible={modalMemberVisible}
                             />
                         ) : (

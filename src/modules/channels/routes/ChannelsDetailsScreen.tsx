@@ -62,7 +62,10 @@ export default function ChannelsDetailsScreen({navigation, route}) {
                                         <TrackersCreateForm
                                             channelCategoryId={categoryId}
                                             channelId={channelId}
-                                            onClose={() => setModalVisible(false)}
+                                            onClose={() => {
+                                                setModalVisible(false)
+                                                refetch()
+                                            }}
                                             visible={modalVisible}
                                         />
                                     ) : (
