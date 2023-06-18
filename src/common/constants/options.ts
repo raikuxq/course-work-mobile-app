@@ -9,14 +9,14 @@ export enum EnumStatus {
     CLOSED = 'CLOSED',
     DISCUSSION = 'DISCUSSION',
     FULFILMENT = 'FULFILMENT',
-    READY = 'READY',
+    NEW = 'NEW',
     TO_APPROVE = 'TO_APPROVE'
 };
 
 export enum EnumType {
     FUNCTIONALITY = 'FUNCTIONALITY',
     REPORTING = 'REPORTING',
-    UI = 'UI',
+    OTHER = 'OTHER',
     VULNERABILITY = 'VULNERABILITY'
 };
 
@@ -27,8 +27,8 @@ export enum EnumRole {
 }
 
 export const roleOptions = [
-    {label: 'Разработчик', value: EnumRole.DEV},
-    {label: 'QA', value: EnumRole.QA},
+    {label: 'Исполнитель', value: EnumRole.DEV},
+    {label: 'Проверяющий', value: EnumRole.QA},
     {label: 'Гость', value: EnumRole.GUEST}
 ]
 
@@ -40,18 +40,18 @@ export const priorityOptions = [
 ];
 
 export const statusOptions = [
-    {label: 'Закрыто', value: EnumStatus.CLOSED},
+    {label: 'Закрыт', value: EnumStatus.CLOSED},
     {label: 'Обсуждение', value: EnumStatus.DISCUSSION},
-    {label: 'Выполнение', value: EnumStatus.FULFILMENT},
-    {label: 'Готово', value: EnumStatus.READY},
+    {label: 'В работе', value: EnumStatus.FULFILMENT},
+    {label: 'Новый', value: EnumStatus.NEW},
     {label: 'На утверждении', value: EnumStatus.TO_APPROVE},
 ];
 
 export const typeOptions = [
-    {label: 'Функциональность', value: EnumType.FUNCTIONALITY},
-    {label: 'Отчетность', value: EnumType.REPORTING},
-    {label: 'Интерфейс', value: EnumType.UI},
-    {label: 'Уязвимость', value: EnumType.VULNERABILITY},
+    {label: 'Реализация', value: EnumType.FUNCTIONALITY},
+    {label: 'Отчет', value: EnumType.REPORTING},
+    {label: 'Другое', value: EnumType.OTHER},
+    {label: 'Ошибка', value: EnumType.VULNERABILITY},
 ];
 
 export const labelsRole = roleOptions.reduce((acc, option) => {
@@ -91,13 +91,13 @@ export const statusOptionsList = [
     { label: labelsStatus[EnumStatus.CLOSED], value: EnumStatus.CLOSED },
     { label: labelsStatus[EnumStatus.DISCUSSION], value: EnumStatus.DISCUSSION },
     { label: labelsStatus[EnumStatus.FULFILMENT], value: EnumStatus.FULFILMENT },
-    { label: labelsStatus[EnumStatus.READY], value: EnumStatus.READY },
+    { label: labelsStatus[EnumStatus.NEW], value: EnumStatus.NEW },
     { label: labelsStatus[EnumStatus.TO_APPROVE], value: EnumStatus.TO_APPROVE },
 ];
 
 export const typeOptionsList = [
     { label: labelsType[EnumType.FUNCTIONALITY], value: EnumType.FUNCTIONALITY },
     { label: labelsType[EnumType.REPORTING], value: EnumType.REPORTING },
-    { label: labelsType[EnumType.UI], value: EnumType.UI },
+    { label: labelsType[EnumType.OTHER], value: EnumType.OTHER },
     { label: labelsType[EnumType.VULNERABILITY], value: EnumType.VULNERABILITY },
 ];
